@@ -104,7 +104,7 @@ const PB=({l,t,s})=><div className="pb"><div className="pb-bg"/><div className="
 /* === HOME === */
 const Home=({go})=>{const[at,sa]=useState(0);useEffect(()=>{const i=setInterval(()=>sa(p=>(p+1)%TE.length),5500);return()=>clearInterval(i)},[]);
 return<><section className="hero"><Particles/><div className="hg"/><div className="ho ho1"/><div className="ho ho2"/><div className="ho ho3"/>
-<div className="hi"><div><F><div className="badge">Web Development Agency</div></F><F d={.1}><h1 className="h1h">We Build Websites That <span className="acc">Grow Businesses</span></h1></F>
+<div className="hi"><div><F><div className="badge">Web Development Agency</div></F><F d={.1}><h1 className="h1h">We Build Websites<br/>That <span className="acc">Grow Businesses</span></h1></F>
 <F d={.2}><p className="hsub">Custom web design, development, and digital marketing solutions that elevate your online presence and convert visitors into loyal customers.</p></F>
 <F d={.3}><div className="btns"><a href="#" onClick={e=>{e.preventDefault();go("contact")}} className="btn bg">Start Your Project <A/></a><a href="#" onClick={e=>{e.preventDefault();go("portfolio")}} className="btn bo">View Our Work</a></div></F></div>
 <F d={.2}><div className="hm"><div className="mock"><div className="mock-ch"><div className="dots"><div className="dot r"/><div className="dot y"/><div className="dot g"/></div><div className="url">🔒 yourwebsite.com</div></div>
@@ -147,7 +147,7 @@ const About=({go})=><><PB l="About Us" t="Your Success Is Our Mission" s="We're 
 
 /* === PORTFOLIO === */
 const Portfolio=({go})=><><PB l="Our Work" t="Projects That Speak For Themselves" s="Real results for real businesses."/>
-<section className="sec"><div className="ptg">{PR.map((p,i)=><F key={i} d={i*.12}><div className="ptc"><div className="ptw"><img className="pim" src={p.img} alt={p.n}/><div className="pto"><span className="btn bg" style={{padding:"10px 24px",fontSize:12}}>View Details</span></div><div className="pn">0{i+1}</div></div><div className="ptb"><div className="pct">{p.c}</div><h3 style={{color:"var(--w)",fontSize:20,fontWeight:700,marginBottom:6}}>{p.n}</h3><p style={{color:"var(--tm)",fontSize:13,lineHeight:1.6,fontWeight:300}}>{p.d}</p></div></div></F>)}</div>
+<section className="sec"><div className="ptg">{PR.map((p,i)=><F key={i} d={i*.12}><div className="ptc"><div className="ptw"><img className="pim" src={p.img} alt={p.n}/><div className="pn">0{i+1}</div></div><div className="ptb"><div className="pct">{p.c}</div><h3 style={{color:"var(--w)",fontSize:20,fontWeight:700,marginBottom:6}}>{p.n}</h3><p style={{color:"var(--tm)",fontSize:13,lineHeight:1.6,fontWeight:300}}>{p.d}</p></div></div></F>)}</div>
 <F><div style={{textAlign:"center",marginTop:50}}><div className="cta-box"><h3 style={{color:"var(--w)",fontSize:22,fontWeight:700,marginBottom:10,position:"relative"}}>Have a Project in Mind?</h3><p style={{color:"var(--tm)",fontSize:13,lineHeight:1.6,fontWeight:300,marginBottom:20,position:"relative"}}>Every great project starts with a conversation.</p><a href="#" onClick={e=>{e.preventDefault();go("contact")}} className="btn bg" style={{position:"relative"}}>Start Your Project <A/></a></div></div></F></section></>;
 
 /* === TESTIMONIALS === */
