@@ -104,14 +104,14 @@ const PB=({l,t,s})=><div className="pb"><div className="pb-bg"/><div className="
 /* === HOME === */
 const Home=({go})=>{const[at,sa]=useState(0);useEffect(()=>{const i=setInterval(()=>sa(p=>(p+1)%TE.length),5500);return()=>clearInterval(i)},[]);
 return<><section className="hero"><Particles/><div className="hg"/><div className="ho ho1"/><div className="ho ho2"/><div className="ho ho3"/>
-<div className="hi"><div><F><div className="badge">Web Development Agency</div></F><F d={.1}><h1 className="h1h">We Build Websites<br/>That <span className="acc">Grow Businesses</span></h1></F>
+<div className="hi"><div><F><div className="badge">Web Development Agency</div></F><F d={.1}><h1 className="h1h">We Build <br/> Websites That <span className="acc">Grow Businesses</span></h1></F>
 <F d={.2}><p className="hsub">Custom web design, development, and digital marketing solutions that elevate your online presence and convert visitors into loyal customers.</p></F>
 <F d={.3}><div className="btns"><a href="#" onClick={e=>{e.preventDefault();go("contact")}} className="btn bg">Start Your Project <A/></a><a href="#" onClick={e=>{e.preventDefault();go("portfolio")}} className="btn bo">View Our Work</a></div></F></div>
 <F d={.2}><div className="hm"><div className="mock"><div className="mock-ch"><div className="dots"><div className="dot r"/><div className="dot y"/><div className="dot g"/></div><div className="url">🔒 yourwebsite.com</div></div>
 <div className="mock-bd"><div className="mock-hero"><div className="mock-glow"/><div className="mock-nav-dots"><div className="mnd a"/><div className="mnd"/><div className="mnd"/></div><div className="mock-title">Modern Web<br/><span style={{color:"#00E676"}}>Design</span></div><div className="mock-desc">Beautiful, responsive websites crafted to make an impact.</div><div style={{display:"flex",gap:8}}><div className="mock-btn-g">Get Started</div><div className="mock-btn-o">Learn More</div></div></div>
 <div style={{display:"flex",gap:10}}>{[{i:"🎨",l:"UI Design",c:"#00E676"},{i:"📱",l:"Responsive",c:"#82AAFF"},{i:"⚡",l:"Fast",c:"#C3E88D"}].map((x,j)=><div key={j} className="mock-feat"><div style={{fontSize:16,marginBottom:4}}>{x.i}</div><div style={{fontSize:8,color:x.c,fontWeight:600}}>{x.l}</div></div>)}</div>
 </div></div></div></F></div></section>
-<div className="stw"><F><div className="sts">{[{n:"50+",l:"Projects"},{n:"4+",l:"Years"},{n:"100%",l:"Satisfaction"},{n:"3",l:"Services"}].map((s,i)=><div className="st" key={i}><div className="stn">{s.n}</div><div className="stl">{s.l}</div></div>)}</div></F></div>
+<div className="stw"><F><div className="sts">{[{n:"15+",l:"Projects"},{n:"4+",l:"Years"},{n:"100%",l:"Satisfaction"},{n:"3",l:"Services"}].map((s,i)=><div className="st" key={i}><div className="stn">{s.n}</div><div className="stl">{s.l}</div></div>)}</div></F></div>
 <section className="sec"><F><div className="hdr"><div className="label">Our Services</div><h2 className="title">Everything You Need to Succeed Online</h2></div></F>
 <div className="sg">{SV.map((s,i)=><F key={i} d={i*.08}><div className="scard" onClick={()=>go("sv-"+s.id)}><div className="si">{IC[s.ic]}</div><h3>{s.t}</h3><p>{s.sh}</p><span className="sl">Learn More <A/></span></div></F>)}</div></section>
 
