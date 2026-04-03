@@ -21,6 +21,10 @@ const useSEO = ({ title, description, keywords }) => {
     let mk = document.querySelector('meta[name="keywords"]');
     if (!mk) { mk = document.createElement('meta'); mk.name = 'keywords'; document.head.appendChild(mk); }
     mk.content = keywords;
+    // Google Search Console Verification
+    let gv = document.querySelector('meta[name="google-site-verification"]');
+    if (!gv) { gv = document.createElement('meta'); gv.name = 'google-site-verification'; document.head.appendChild(gv); }
+    gv.content = 'xSarrO6mi5mMopaaWrAAzPgyOAUOBbJrOP8UKnRsqTQ';
     // Open Graph
     const og = (prop, val) => {
       let el = document.querySelector(`meta[property="${prop}"]`);
