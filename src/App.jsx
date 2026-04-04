@@ -1,7 +1,7 @@
 import takweenImg from './assets/Takween.jpg'
-import mysmartfitImg from './assets/MySmartfit.jpg'
-import slayersImg from './assets/Slayersclub.jpg'
-import simpletouchImg from './assets/SimpleTouch.jpg'
+import mysmartfitImg from './assets/MySmartfit.png'
+import slayersImg from './assets/Slayersclub.png'
+import simpletouchImg from './assets/SimpleTouch.png'
 import navLogo from './assets/NettraceproLogo.png'
 import footerLogo from './assets/NewLogo.png'
 import teamPhoto from './assets/NewLogo.png'
@@ -230,7 +230,7 @@ const Services=({go})=>{
     keywords:"NetTracePro services, web design Houston, mobile app development Houston, SEO agency Houston, digital marketing services, NetTracePro"
   });
   return<><PB l="NetTracePro Services" t="What We Offer" s="Full-service digital solutions from Houston's trusted agency — NetTracePro."/>
-<section className="sec">{SV.map((s,i)=><F key={s.id} d={i*.1}><div className="svr" style={{flexDirection:i%2===1?"row-reverse":"row"}}><div className="svr-img"><img src={s.img} alt={`NetTracePro — ${s.t}`} style={{width:'100%',height:400,objectFit:'contain',borderRadius:10,background:'#0d0d0d'}}/></div><div className="svr-txt"><div className="si" style={{marginBottom:16}}>{IC[s.ic]}</div><h2 className="title" style={{fontSize:26}}>{s.t}</h2><p style={{color:"var(--tm)",lineHeight:1.7,fontWeight:300,marginBottom:20}}>{s.fl}</p><div style={{display:"flex",flexWrap:"wrap",gap:8,marginBottom:24}}>{s.ft.slice(0,4).map((f,j)=><span key={j} className="ftag">{IC.k} {f}</span>)}</div><a href="#" onClick={e=>{e.preventDefault();go("sv-"+s.id)}} className="btn bg">Learn More <A/></a></div></div>{i<SV.length-1&&<div style={{height:1,background:"var(--bd)",margin:"50px 0"}}/>}</F>)}</section>
+<section className="sec">{SV.map((s,i)=><F key={s.id} d={i*.1}><div className="svr" style={{flexDirection:i%2===1?"row-reverse":"row"}}><div className="svr-img"><img src={s.img} alt={`NetTracePro — ${s.t}`} style={{width:'100%',height:400,objectFit:'cover',borderRadius:10,background:'#0d0d0d'}}/></div><div className="svr-txt"><div className="si" style={{marginBottom:16}}>{IC[s.ic]}</div><h2 className="title" style={{fontSize:26}}>{s.t}</h2><p style={{color:"var(--tm)",lineHeight:1.7,fontWeight:300,marginBottom:20}}>{s.fl}</p><div style={{display:"flex",flexWrap:"wrap",gap:8,marginBottom:24}}>{s.ft.slice(0,4).map((f,j)=><span key={j} className="ftag">{IC.k} {f}</span>)}</div><a href="#" onClick={e=>{e.preventDefault();go("sv-"+s.id)}} className="btn bg">Learn More <A/></a></div></div>{i<SV.length-1&&<div style={{height:1,background:"var(--bd)",margin:"50px 0"}}/>}</F>)}</section>
 <WhySection/>
 <div className="cta"><F><h2 className="cta-h">Ready to Get Started with NetTracePro?</h2><p className="cta-p">Let's discuss which services are right for your Houston business.</p><a href="#" onClick={e=>{e.preventDefault();go("contact")}} className="btn bg" style={{position:"relative"}}>Contact NetTracePro <A/></a></F></div></>;
 };
@@ -245,7 +245,7 @@ const SvcDetail=({id,go})=>{
   });
   return<><PB l="NetTracePro Service" t={sv.t} s={sv.sh}/>
 <section className="sec"><div className="sdg"><FX dir="l"><div><h2 className="title" style={{fontSize:26}}>Overview</h2><p style={{color:"var(--tm)",lineHeight:1.8,fontWeight:300,marginBottom:28}}>{sv.fl}</p><h3 style={{color:"var(--w)",fontSize:17,fontWeight:600,marginBottom:14}}>What's Included</h3><div className="flist">{sv.ft.map((f,i)=><div key={i} className="fitem"><div className="fchk">{IC.k}</div><span>{f}</span></div>)}</div></div></FX>
-<FX dir="r"><div style={{display:"flex",flexDirection:"column",gap:16}}><img src={sv.img} alt={`NetTracePro ${sv.t}`} style={{width:'100%',height:350,objectFit:'contain',borderRadius:10,background:'#0d0d0d'}}/><div style={{background:"var(--sf)",border:"1px solid var(--bd)",borderRadius:12,padding:24}}><h3 style={{color:"var(--w)",fontSize:15,fontWeight:600,marginBottom:16}}>The NetTracePro Process</h3>{sv.pr.map((p,i)=><div key={i} className="prs"><div className="prn">0{i+1}</div><div className="prt">{p}</div></div>)}</div><a href="#" onClick={e=>{e.preventDefault();go("contact")}} className="btn bg" style={{textAlign:"center",justifyContent:"center"}}>Start With NetTracePro <A/></a></div></FX></div></section></>
+<FX dir="r"><div style={{display:"flex",flexDirection:"column",gap:16}}><img src={sv.img} alt={`NetTracePro ${sv.t}`} style={{width:'100%',height:350,objectFit:'cover',borderRadius:10,background:'#0d0d0d'}}/><div style={{background:"var(--sf)",border:"1px solid var(--bd)",borderRadius:12,padding:24}}><h3 style={{color:"var(--w)",fontSize:15,fontWeight:600,marginBottom:16}}>The NetTracePro Process</h3>{sv.pr.map((p,i)=><div key={i} className="prs"><div className="prn">0{i+1}</div><div className="prt">{p}</div></div>)}</div><a href="#" onClick={e=>{e.preventDefault();go("contact")}} className="btn bg" style={{textAlign:"center",justifyContent:"center"}}>Start With NetTracePro <A/></a></div></FX></div></section></>
 };
 
 /* === ABOUT === */
@@ -353,7 +353,7 @@ return<><style>{`@import url('https://fonts.googleapis.com/css2?family=Poppins:w
 .si{width:48px;height:48px;background:var(--gd);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--g);margin-bottom:20px;transition:all .3s}.scard:hover .si{background:var(--g);color:var(--bg);transform:scale(1.1) rotate(-5deg)}
 .scard h3{font-size:18px;font-weight:600;color:var(--w);margin-bottom:10px}.scard p{font-size:14px;line-height:1.65;color:var(--tm);font-weight:300;margin-bottom:18px}.sl{display:inline-flex;align-items:center;gap:6px;color:var(--g);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;transition:gap .3s}.scard:hover .sl{gap:12px}
 .pg{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}.pc{background:var(--sf);border:1px solid var(--bd);border-radius:12px;overflow:hidden;transition:all .4s}.pc:hover{border-color:rgba(0,230,118,.3);transform:translateY(-4px)}
-.piw{overflow:hidden;position:relative}.piw::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(10,10,10,.7),transparent 50%);pointer-events:none}.pim{width:100%;aspect-ratio:16/10;object-fit:contain;display:block;transition:transform .6s}.pc:hover .pim,.ptc:hover .pim{transform:scale(1.06)}
+.piw{overflow:hidden;position:relative}.piw::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(10,10,10,.7),transparent 50%);pointer-events:none}.pim{width:100%;aspect-ratio:16/10;object-fit:cover;display:block;transition:transform .6s}.pc:hover .pim,.ptc:hover .pim{transform:scale(1.06)}
 .pn{font-size:48px;font-weight:800;color:rgba(0,230,118,.12);position:absolute;top:12px;right:16px;line-height:1;z-index:2}.pbd{padding:20px 24px}.pct{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--g);font-weight:600;margin-bottom:6px}.pc h3,.ptb h3{font-size:20px;font-weight:700;color:var(--w);margin-bottom:4px}.py{font-size:12px;color:var(--td)}
 .ts{background:var(--sf);border-top:1px solid var(--bd);border-bottom:1px solid var(--bd)}
 .tcard{max-width:700px;margin:0 auto;background:var(--bg);border:1px solid var(--bd);border-radius:16px;padding:44px 40px 32px;position:relative;overflow:hidden;text-align:center}.tglow{position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:300px;height:200px;background:radial-gradient(ellipse,rgba(0,230,118,.06),transparent 70%);pointer-events:none}
