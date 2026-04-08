@@ -1,7 +1,7 @@
 import takweenImg from './assets/Takween.jpg'
-import mysmartfitImg from './assets/MySmartfit.jpg'
-import slayersImg from './assets/Slayersclub.jpg'
-import simpletouchImg from './assets/SimpleTouch.jpg'
+import mysmartfitImg from './assets/MySmartfit.png'
+import slayersImg from './assets/Slayersclub.png'
+import simpletouchImg from './assets/SimpleTouch.png'
 import navLogo from './assets/NettraceproLogo.png'
 import footerLogo from './assets/NewLogo.png'
 import teamPhoto from './assets/NewLogo.png'
@@ -126,14 +126,16 @@ const TE=[
 {q:"NetTracePro's professionalism and dedication is unmatched. From web design to SEO, they consistently exceed expectations and keep us ahead of the competition.",a:"SimpleTouch POS",r:"Web Application Client",bg:"linear-gradient(135deg,#42A5F5,#1565C0)"}
 ];
 
-// ── WHY NETTRACEPRO — keyword-rich differentiators section ─────────────────────
-const WHY = [
-  {i:"🏆",t:"Houston's Top-Rated Agency",d:"NetTracePro is consistently ranked among the top web design and digital marketing agencies in Houston, TX. Our work speaks for itself — 15+ projects, 100% client satisfaction."},
-  {i:"⚡",t:"Websites That Actually Rank",d:"Every NetTracePro website is built SEO-first. We structure your site so Google finds it, indexes it, and ranks it above the competition for your target keywords."},
-  {i:"🎯",t:"Strategy Before Design",d:"We don't just make pretty websites. NetTracePro digs into your business, your customers, and your market to craft a digital strategy that drives measurable growth."},
-  {i:"📱",t:"Mobile-First Development",d:"Over 60% of web traffic is mobile. Every NetTracePro project is built responsive and mobile-first, ensuring your customers get a flawless experience on any device."},
-  {i:"🔒",t:"Transparent & Reliable",d:"No hidden fees, no surprises. NetTracePro gives you clear timelines, honest pricing, and regular updates. You'll always know exactly where your project stands."},
-  {i:"🚀",t:"Fast Turnaround Times",d:"We know time is money. NetTracePro's streamlined process gets your website designed, developed, and launched faster than traditional agencies — without cutting corners."},
+// ── TRANSFORMATION DATA ────────────────────────────────────────────────────────
+const TRANSFORMS = [
+  {
+    client: "M.A. CPA Inc.",
+    category: "Accounting & Finance",
+    beforeImg: "/Old_CPA.jpg",
+    afterImg: "/New_CPA.jpg",
+    stats: [{n:"340%",l:"ROI Increase"},{n:"2×",l:"More Leads"},{n:"Page 1",l:"Google Ranking"}],
+    desc: "From a basic template to a stunning, conversion-focused platform that commands trust and drives consultations."
+  }
 ];
 
 // ── FAQ SECTION ───────────────────────────────────────────────────────────────
@@ -158,19 +160,65 @@ const Ft=({go})=><footer className="ft" aria-label="NetTracePro Footer"><div cla
 
 const PB=({l,t,s})=><div className="pb"><div className="pb-bg"/><div className="pb-in"><F><div className="label">{l}</div><h1 className="pb-t">{t}</h1>{s&&<p className="pb-s">{s}</p>}</F></div></div>;
 
-/* ── WHY NETTRACEPRO SECTION ── */
-const WhySection=()=><section className="why-sec" aria-labelledby="why-heading">
+/* ── TRANSFORMATION BEFORE/AFTER SECTION ── */
+const TransformSection=({go})=>{
+  const[pos,sp]=useState(50);
+  const[drag,sd]=useState(false);
+  const[active,sa]=useState(0);
+  const ref=useRef(null);
+  const t=TRANSFORMS[active];
+  const move=e=>{
+    if(!drag||!ref.current)return;
+    const r=ref.current.getBoundingClientRect();
+    const x=(e.touches?e.touches[0].clientX:e.clientX)-r.left;
+    const pct=Math.min(Math.max((x/r.width)*100,2),98);
+    sp(pct);
+  };
+  return<section className="tf-sec" aria-labelledby="tf-heading">
   <F><div className="hdr" style={{textAlign:"center",marginBottom:48}}>
-    <div className="label">Why NetTracePro</div>
-    <h2 className="title" id="why-heading">The NetTracePro Difference</h2>
-    <p className="sub" style={{margin:"0 auto",textAlign:"center"}}>Houston businesses choose NetTracePro because we combine great design, technical excellence, and real marketing strategy — all under one roof.</p>
+    <div className="label">Real Transformations</div>
+    <h2 className="title" id="tf-heading">See the NetTracePro Difference</h2>
+    <p className="sub" style={{margin:"0 auto",textAlign:"center"}}>Drag the slider to reveal what NetTracePro transforms — outdated websites into high-converting digital experiences.</p>
   </div></F>
-  <div className="why-grid">{WHY.map((w,i)=><F key={i} d={i*.07}><div className="why-card">
-    <div className="why-icon">{w.i}</div>
-    <h3>{w.t}</h3>
-    <p>{w.d}</p>
-  </div></F>)}</div>
-</section>;
+  <div className="tf-wrap">
+    <div className="tf-slider" ref={ref}
+      onMouseMove={move} onMouseUp={()=>sd(false)} onMouseLeave={()=>sd(false)}
+      onTouchMove={move} onTouchEnd={()=>sd(false)}>
+      {/* AFTER — full background */}
+      <div className="tf-after" style={{backgroundImage:`url(${t.afterImg})`}}/>
+      {/* BEFORE — clipped to left of divider */}
+      <div className="tf-before" style={{width:`${pos}%`,backgroundImage:`url(${t.beforeImg})`}}/>
+      {/* Labels */}
+      <div className="tf-lbl tf-lbl-b" style={{opacity:pos>18?1:0}}>
+        <span className="tf-lbl-dot tf-dot-b"/>Before
+      </div>
+      <div className="tf-lbl tf-lbl-a" style={{opacity:pos<82?1:0}}>
+        After<span className="tf-lbl-dot tf-dot-a"/>
+      </div>
+      {/* Divider handle */}
+      <div className="tf-line" style={{left:`${pos}%`}}
+        onMouseDown={e=>{e.preventDefault();sd(true)}}
+        onTouchStart={e=>{sd(true)}}>
+        <div className="tf-handle">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <path d="M8 4l-4 8 4 8M16 4l4 8-4 8"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+    {/* Info panel */}
+    <div className="tf-info">
+      <div className="tf-client-tag">{t.category}</div>
+      <h3 className="tf-client-name">{t.client}</h3>
+      <p className="tf-desc">{t.desc}</p>
+      <div className="tf-stats">{t.stats.map((s,i)=><div key={i} className="tf-stat">
+        <div className="tf-stat-n">{s.n}</div>
+        <div className="tf-stat-l">{s.l}</div>
+      </div>)}</div>
+      <a href="#" onClick={e=>{e.preventDefault();go("contact")}} className="btn bg" style={{marginTop:8}}>Get Your Transformation <A/></a>
+    </div>
+  </div>
+</section>};
 
 /* ── FAQ SECTION ── */
 const FaqSection=()=>{const[op,so]=useState(null);
@@ -207,7 +255,7 @@ return<><section className="hero" aria-label="NetTracePro — Houston Web Design
 <section className="sec" aria-labelledby="services-heading"><F><div className="hdr"><div className="label">NetTracePro Services</div><h2 className="title" id="services-heading">Everything Your Business Needs to Win Online</h2><p className="sub">From web design to SEO, NetTracePro provides end-to-end digital solutions for Houston businesses ready to grow.</p></div></F>
 <div className="sg">{SV.map((s,i)=><F key={i} d={i*.08}><div className="scard" onClick={()=>go("sv-"+s.id)}><div className="si">{IC[s.ic]}</div><h3>{s.t}</h3><p>{s.sh}</p><span className="sl">Learn More <A/></span></div></F>)}</div></section>
 
-<WhySection/>
+<TransformSection go={go}/>
 
 <section className="sec" aria-labelledby="projects-heading"><F><div className="hdr"><div className="label">NetTracePro Work</div><h2 className="title" id="projects-heading">Real Projects. Real Results.</h2><p className="sub">Every NetTracePro project is built to perform — beautiful design backed by strategy and SEO.</p></div></F>
 <div className="pg">{PR.map((p,i)=><F key={i} d={i*.08}><div className="pc"><div className="piw"><img className="pim" src={p.img} alt={`NetTracePro project — ${p.n}`}/><div className="pn">0{i+1}</div></div><div className="pbd"><div className="pct">{p.c}</div><h3>{p.n}</h3><div className="py">{p.y}</div></div></div></F>)}</div>
@@ -231,7 +279,7 @@ const Services=({go})=>{
   });
   return<><PB l="NetTracePro Services" t="What We Offer" s="Full-service digital solutions from Houston's trusted agency — NetTracePro."/>
 <section className="sec">{SV.map((s,i)=><F key={s.id} d={i*.1}><div className="svr" style={{flexDirection:i%2===1?"row-reverse":"row"}}><div className="svr-img"><img src={s.img} alt={`NetTracePro — ${s.t}`} style={{width:'100%',height:400,objectFit:'cover',borderRadius:10,background:'#0d0d0d'}}/></div><div className="svr-txt"><div className="si" style={{marginBottom:16}}>{IC[s.ic]}</div><h2 className="title" style={{fontSize:26}}>{s.t}</h2><p style={{color:"var(--tm)",lineHeight:1.7,fontWeight:300,marginBottom:20}}>{s.fl}</p><div style={{display:"flex",flexWrap:"wrap",gap:8,marginBottom:24}}>{s.ft.slice(0,4).map((f,j)=><span key={j} className="ftag">{IC.k} {f}</span>)}</div><a href="#" onClick={e=>{e.preventDefault();go("sv-"+s.id)}} className="btn bg">Learn More <A/></a></div></div>{i<SV.length-1&&<div style={{height:1,background:"var(--bd)",margin:"50px 0"}}/>}</F>)}</section>
-<WhySection/>
+<TransformSection go={go}/>
 <div className="cta"><F><h2 className="cta-h">Ready to Get Started with NetTracePro?</h2><p className="cta-p">Let's discuss which services are right for your Houston business.</p><a href="#" onClick={e=>{e.preventDefault();go("contact")}} className="btn bg" style={{position:"relative"}}>Contact NetTracePro <A/></a></F></div></>;
 };
 
@@ -376,12 +424,26 @@ return<><style>{`@import url('https://fonts.googleapis.com/css2?family=Poppins:w
 .ptw{position:relative;overflow:hidden}.pto{position:absolute;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .4s}.ptc:hover .pto{opacity:1}.ptb{padding:20px 24px}.cta-box{background:var(--sf);border:1px solid var(--bd);border-radius:16px;padding:44px 36px;max-width:560px;margin:0 auto;position:relative;overflow:hidden}
 .teg{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.tec{background:var(--sf);border:1px solid var(--bd);border-radius:14px;padding:28px 24px;transition:all .4s;display:flex;flex-direction:column;gap:14px}.tec:hover{border-color:rgba(0,230,118,.2);transform:translateY(-4px)}.tec-top{display:flex;align-items:center;gap:12px}
 .ctg{display:grid;grid-template-columns:1fr 1.3fr;gap:50px;align-items:start}.ctfc{background:var(--sf);border:1px solid var(--bd);border-radius:14px;padding:32px 28px;position:relative;overflow:hidden}.ctfg{position:absolute;top:-40px;right:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(0,230,118,.06),transparent 70%);pointer-events:none}
-.why-sec{background:linear-gradient(180deg,var(--bg) 0%,rgba(0,230,118,.025) 50%,var(--bg) 100%);padding:80px 60px;border-top:1px solid var(--bd);border-bottom:1px solid var(--bd)}
-.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1280px;margin:0 auto}
-.why-card{background:var(--sf);border:1px solid var(--bd);border-radius:14px;padding:32px 26px;transition:all .4s;position:relative;overflow:hidden}
-.why-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--g),transparent);transform:scaleX(0);transition:transform .5s}
-.why-card:hover{border-color:rgba(0,230,118,.3);transform:translateY(-5px);box-shadow:0 20px 40px rgba(0,0,0,.3)}.why-card:hover::before{transform:scaleX(1)}
-.why-icon{font-size:32px;margin-bottom:14px}.why-card h3{font-size:16px;font-weight:700;color:var(--w);margin-bottom:10px}.why-card p{font-size:13px;line-height:1.7;color:var(--tm);font-weight:300}
+.tf-sec{padding:80px 60px;border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);background:linear-gradient(180deg,var(--bg) 0%,rgba(0,230,118,.02) 50%,var(--bg) 100%)}
+.tf-wrap{display:grid;grid-template-columns:1.6fr 1fr;gap:48px;align-items:center;max-width:1280px;margin:0 auto}
+.tf-slider{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:16/9;cursor:col-resize;user-select:none;box-shadow:0 40px 80px rgba(0,0,0,.6);border:1px solid var(--bd)}
+.tf-after{position:absolute;inset:0;background-size:cover;background-position:center top}
+.tf-before{position:absolute;top:0;left:0;bottom:0;overflow:hidden;background-size:cover;background-position:left top;border-right:none}
+.tf-line{position:absolute;top:0;bottom:0;width:3px;background:var(--g);transform:translateX(-50%);z-index:10;cursor:col-resize;box-shadow:0 0 20px rgba(0,230,118,.6)}
+.tf-handle{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:44px;height:44px;background:var(--g);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--bg);box-shadow:0 0 0 4px rgba(0,230,118,.2),0 8px 24px rgba(0,0,0,.4);transition:transform .2s}.tf-handle:hover{transform:translate(-50%,-50%) scale(1.1)}
+.tf-lbl{position:absolute;top:16px;display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:100px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;transition:opacity .3s;z-index:9}
+.tf-lbl-b{left:14px;background:rgba(0,0,0,.7);color:#aaa;border:1px solid rgba(255,255,255,.1)}
+.tf-lbl-a{right:14px;background:rgba(0,230,118,.15);color:var(--g);border:1px solid rgba(0,230,118,.3)}
+.tf-lbl-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.tf-dot-b{background:#666}.tf-dot-a{background:var(--g);box-shadow:0 0 8px var(--g)}
+.tf-info{display:flex;flex-direction:column;gap:18px}
+.tf-client-tag{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--g)}
+.tf-client-name{font-size:28px;font-weight:800;color:var(--w);line-height:1.2;letter-spacing:-.5px}
+.tf-desc{font-size:14px;line-height:1.75;color:var(--tm);font-weight:300}
+.tf-stats{display:flex;gap:16px;flex-wrap:wrap}
+.tf-stat{background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:14px 18px;flex:1;min-width:80px;transition:border-color .3s}.tf-stat:hover{border-color:rgba(0,230,118,.3)}
+.tf-stat-n{font-size:22px;font-weight:800;color:var(--g);line-height:1}
+.tf-stat-l{font-size:10px;color:var(--td);text-transform:uppercase;letter-spacing:1px;margin-top:4px}
 .faq-sec{background:var(--sf);border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);padding:80px 60px}
 .faq-wrap{max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
 .faq-item{background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:20px 24px;cursor:pointer;transition:all .3s}
@@ -391,8 +453,8 @@ return<><style>{`@import url('https://fonts.googleapis.com/css2?family=Poppins:w
 .faq-icon{width:28px;height:28px;background:var(--gd);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--g);font-size:18px;font-weight:300;flex-shrink:0;transition:all .3s;line-height:1}
 .faq-item.open .faq-icon{background:var(--g);color:var(--bg)}
 .faq-a{margin-top:14px;font-size:14px;line-height:1.75;color:var(--tm);font-weight:300;padding-top:14px;border-top:1px solid var(--bd)}
-@media(max-width:1024px){.nv{padding:16px 24px}.nk{display:none}.hero{padding:120px 24px 80px}.hi{grid-template-columns:1fr;gap:40px}.sec,.sec-w{padding:60px 24px}.stw{padding:0 24px}.sts{flex-wrap:wrap}.st{min-width:50%;padding:18px 14px}.sg>div{flex:0 0 100%}.pg,.ptg{grid-template-columns:1fr}.abg,.sdg,.ctg{grid-template-columns:1fr;gap:28px}.svr{flex-direction:column!important;gap:28px}.prg,.teg{grid-template-columns:1fr 1fr}.fg{grid-template-columns:1fr 1fr;gap:16px}.cta{padding:60px 24px}.ft{padding:40px 24px 16px}.pb{padding:120px 24px 60px}.fr{grid-template-columns:1fr}.why-grid{grid-template-columns:1fr 1fr}.why-sec,.faq-sec{padding:60px 24px}}
-@media(max-width:600px){.h1h{font-size:28px!important}.btns{flex-direction:column;align-items:stretch}.fg{grid-template-columns:1fr}.prg,.teg{grid-template-columns:1fr}.st{min-width:50%}.why-grid{grid-template-columns:1fr}}
+@media(max-width:1024px){.nv{padding:16px 24px}.nk{display:none}.hero{padding:120px 24px 80px}.hi{grid-template-columns:1fr;gap:40px}.sec,.sec-w{padding:60px 24px}.stw{padding:0 24px}.sts{flex-wrap:wrap}.st{min-width:50%;padding:18px 14px}.sg>div{flex:0 0 100%}.pg,.ptg{grid-template-columns:1fr}.abg,.sdg,.ctg{grid-template-columns:1fr;gap:28px}.svr{flex-direction:column!important;gap:28px}.prg,.teg{grid-template-columns:1fr 1fr}.fg{grid-template-columns:1fr 1fr;gap:16px}.cta{padding:60px 24px}.ft{padding:40px 24px 16px}.pb{padding:120px 24px 60px}.fr{grid-template-columns:1fr}.faq-sec{padding:60px 24px}.tf-wrap{grid-template-columns:1fr}.tf-sec{padding:60px 24px}}
+@media(max-width:600px){.h1h{font-size:28px!important}.btns{flex-direction:column;align-items:stretch}.fg{grid-template-columns:1fr}.prg,.teg{grid-template-columns:1fr}.st{min-width:50%}}
 `}</style>
 <Nav go={go} sc={sc}/>
 {pg==="home"&&<Home go={go}/>}
