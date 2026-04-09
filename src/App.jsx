@@ -1,7 +1,7 @@
 import takweenImg from './assets/Takween.jpg'
-import mysmartfitImg from './assets/MySmartfit.png'
-import slayersImg from './assets/Slayersclub.png'
-import simpletouchImg from './assets/SimpleTouch.png'
+import mysmartfitImg from './assets/MySmartfit.jpg'
+import slayersImg from './assets/Slayersclub.jpg'
+import simpletouchImg from './assets/SimpleTouch.jpg'
 import navLogo from './assets/NettraceproLogo.png'
 import footerLogo from './assets/NewLogo.png'
 import teamPhoto from './assets/NewLogo.png'
@@ -148,9 +148,34 @@ const FAQS = [
   {q:"Can NetTracePro redesign my existing website?", a:"Absolutely. NetTracePro specializes in website redesigns that modernize your brand, improve performance, and dramatically boost your search rankings. We'll audit your current site and map out a clear upgrade plan."},
 ];
 
-const Nav=({go,sc})=><nav className={`nv ${sc?"sc":""}`} aria-label="NetTracePro Main Navigation"><a href="#" onClick={e=>{e.preventDefault();go("home")}} className="nl" aria-label="NetTracePro Home"><img src={LN} alt="NetTracePro Logo" style={{height:36}}/></a><div className="nk">
-<a href="#" onClick={e=>{e.preventDefault();go("services")}}>Services</a>
-<a href="#" onClick={e=>{e.preventDefault();go("about")}}>About</a><a href="#" onClick={e=>{e.preventDefault();go("portfolio")}}>Portfolio</a><a href="#" onClick={e=>{e.preventDefault();go("testimonials")}}>Testimonials</a><a href="#" onClick={e=>{e.preventDefault();go("contact")}} className="nc">Get Started</a></div></nav>;
+const Nav=({go,sc})=>{
+  const[mo,sm]=useState(false);
+  const nav=(p)=>{sm(false);go(p);};
+  return<nav className={`nv ${sc?"sc":""}`} aria-label="NetTracePro Main Navigation">
+    <div className="nv-inner">
+      <a href="#" onClick={e=>{e.preventDefault();nav("home")}} className="nl" aria-label="NetTracePro Home"><img src={LN} alt="NetTracePro Logo" style={{height:36}}/></a>
+      <div className="nk">
+        <a href="#" onClick={e=>{e.preventDefault();nav("services")}}>Services</a>
+        <a href="#" onClick={e=>{e.preventDefault();nav("about")}}>About</a>
+        <a href="#" onClick={e=>{e.preventDefault();nav("portfolio")}}>Portfolio</a>
+        <a href="#" onClick={e=>{e.preventDefault();nav("testimonials")}}>Testimonials</a>
+        <a href="#" onClick={e=>{e.preventDefault();nav("contact")}} className="nc">Get Started</a>
+      </div>
+      <button className="nv-burger" onClick={()=>sm(!mo)} aria-label="Menu">
+        <span className={mo?"bar bar1 open":"bar bar1"}/>
+        <span className={mo?"bar bar2 open":"bar bar2"}/>
+        <span className={mo?"bar bar3 open":"bar bar3"}/>
+      </button>
+    </div>
+    {mo&&<div className="nv-mob">
+      <a href="#" onClick={e=>{e.preventDefault();nav("services")}}>Services</a>
+      <a href="#" onClick={e=>{e.preventDefault();nav("about")}}>About</a>
+      <a href="#" onClick={e=>{e.preventDefault();nav("portfolio")}}>Portfolio</a>
+      <a href="#" onClick={e=>{e.preventDefault();nav("testimonials")}}>Testimonials</a>
+      <a href="#" onClick={e=>{e.preventDefault();nav("contact")}} className="nmc">Get Started</a>
+    </div>}
+  </nav>;
+};
 
 const Ft=({go})=><footer className="ft" aria-label="NetTracePro Footer"><div className="fw"><div className="fg"><div className="fb"><a href="#" onClick={e=>{e.preventDefault();go("home")}} className="nl" aria-label="NetTracePro Home"><img src={LF} alt="NetTracePro" style={{height:50}}/></a><p>NetTracePro — Houston's full-service digital agency for web design, web development, mobile apps, and SEO. Empowering businesses with strategies that convert.</p></div>
 <div className="fc"><h4>Company</h4><a href="#" onClick={e=>{e.preventDefault();go("about")}}>About NetTracePro</a><a href="#" onClick={e=>{e.preventDefault();go("testimonials")}}>Client Testimonials</a><a href="#" onClick={e=>{e.preventDefault();go("portfolio")}}>Our Portfolio</a></div>
@@ -278,7 +303,7 @@ const Services=({go})=>{
     keywords:"NetTracePro services, web design Houston, mobile app development Houston, SEO agency Houston, digital marketing services, NetTracePro"
   });
   return<><PB l="NetTracePro Services" t="What We Offer" s="Full-service digital solutions from Houston's trusted agency — NetTracePro."/>
-<section className="sec">{SV.map((s,i)=><F key={s.id} d={i*.1}><div className="svr" style={{flexDirection:i%2===1?"row-reverse":"row"}}><div className="svr-img"><img src={s.img} alt={`NetTracePro — ${s.t}`} style={{width:'100%',height:400,objectFit:'cover',borderRadius:10,background:'#0d0d0d'}}/></div><div className="svr-txt"><div className="si" style={{marginBottom:16}}>{IC[s.ic]}</div><h2 className="title" style={{fontSize:26}}>{s.t}</h2><p style={{color:"var(--tm)",lineHeight:1.7,fontWeight:300,marginBottom:20}}>{s.fl}</p><div style={{display:"flex",flexWrap:"wrap",gap:8,marginBottom:24}}>{s.ft.slice(0,4).map((f,j)=><span key={j} className="ftag">{IC.k} {f}</span>)}</div><a href="#" onClick={e=>{e.preventDefault();go("sv-"+s.id)}} className="btn bg">Learn More <A/></a></div></div>{i<SV.length-1&&<div style={{height:1,background:"var(--bd)",margin:"50px 0"}}/>}</F>)}</section>
+<section className="sec">{SV.map((s,i)=><F key={s.id} d={i*.1}><div className="svr" style={{flexDirection:i%2===1?"row-reverse":"row"}}><div className="svr-img"><img src={s.img} alt={`NetTracePro — ${s.t}`} style={{width:'100%',height:420,objectFit:'contain',borderRadius:10,background:'#0d0d0d',padding:'10px'}}/></div><div className="svr-txt"><div className="si" style={{marginBottom:16}}>{IC[s.ic]}</div><h2 className="title" style={{fontSize:26}}>{s.t}</h2><p style={{color:"var(--tm)",lineHeight:1.7,fontWeight:300,marginBottom:20}}>{s.fl}</p><div style={{display:"flex",flexWrap:"wrap",gap:8,marginBottom:24}}>{s.ft.slice(0,4).map((f,j)=><span key={j} className="ftag">{IC.k} {f}</span>)}</div><a href="#" onClick={e=>{e.preventDefault();go("sv-"+s.id)}} className="btn bg">Learn More <A/></a></div></div>{i<SV.length-1&&<div style={{height:1,background:"var(--bd)",margin:"50px 0"}}/>}</F>)}</section>
 <TransformSection go={go}/>
 <div className="cta"><F><h2 className="cta-h">Ready to Get Started with NetTracePro?</h2><p className="cta-p">Let's discuss which services are right for your Houston business.</p><a href="#" onClick={e=>{e.preventDefault();go("contact")}} className="btn bg" style={{position:"relative"}}>Contact NetTracePro <A/></a></F></div></>;
 };
@@ -293,7 +318,7 @@ const SvcDetail=({id,go})=>{
   });
   return<><PB l="NetTracePro Service" t={sv.t} s={sv.sh}/>
 <section className="sec"><div className="sdg"><FX dir="l"><div><h2 className="title" style={{fontSize:26}}>Overview</h2><p style={{color:"var(--tm)",lineHeight:1.8,fontWeight:300,marginBottom:28}}>{sv.fl}</p><h3 style={{color:"var(--w)",fontSize:17,fontWeight:600,marginBottom:14}}>What's Included</h3><div className="flist">{sv.ft.map((f,i)=><div key={i} className="fitem"><div className="fchk">{IC.k}</div><span>{f}</span></div>)}</div></div></FX>
-<FX dir="r"><div style={{display:"flex",flexDirection:"column",gap:16}}><img src={sv.img} alt={`NetTracePro ${sv.t}`} style={{width:'100%',height:350,objectFit:'cover',borderRadius:10,background:'#0d0d0d'}}/><div style={{background:"var(--sf)",border:"1px solid var(--bd)",borderRadius:12,padding:24}}><h3 style={{color:"var(--w)",fontSize:15,fontWeight:600,marginBottom:16}}>The NetTracePro Process</h3>{sv.pr.map((p,i)=><div key={i} className="prs"><div className="prn">0{i+1}</div><div className="prt">{p}</div></div>)}</div><a href="#" onClick={e=>{e.preventDefault();go("contact")}} className="btn bg" style={{textAlign:"center",justifyContent:"center"}}>Start With NetTracePro <A/></a></div></FX></div></section></>
+<FX dir="r"><div style={{display:"flex",flexDirection:"column",gap:16}}><img src={sv.img} alt={`NetTracePro ${sv.t}`} style={{width:'100%',height:360,objectFit:'contain',borderRadius:10,background:'#0d0d0d',padding:'8px'}}/><div style={{background:"var(--sf)",border:"1px solid var(--bd)",borderRadius:12,padding:24}}><h3 style={{color:"var(--w)",fontSize:15,fontWeight:600,marginBottom:16}}>The NetTracePro Process</h3>{sv.pr.map((p,i)=><div key={i} className="prs"><div className="prn">0{i+1}</div><div className="prt">{p}</div></div>)}</div><a href="#" onClick={e=>{e.preventDefault();go("contact")}} className="btn bg" style={{textAlign:"center",justifyContent:"center"}}>Start With NetTracePro <A/></a></div></FX></div></section></>
 };
 
 /* === ABOUT === */
@@ -303,16 +328,71 @@ const About=({go})=>{
     description:"Learn about NetTracePro — Houston's trusted web design and digital marketing agency. 4+ years, 15+ projects, 100% client satisfaction. We build websites that grow businesses.",
     keywords:"about NetTracePro, NetTracePro Houston, Houston web agency, web design company Houston, digital marketing Houston, NetTracePro team"
   });
-  return<><PB l="About NetTracePro" t="Your Success Is Our Mission" s="NetTracePro — not just building websites, building partnerships that last."/>
-<section className="sec"><div className="abg"><FX dir="l"><div><div className="label">Our Story</div><h2 className="title" style={{fontSize:26}}>We Started Where You Are Now</h2>
-<p style={{color:"var(--tm)",lineHeight:1.8,fontWeight:300,marginBottom:18}}>NetTracePro was founded in Houston, TX with one belief: <strong style={{color:"var(--w)"}}>every business deserves a digital presence that drives real results.</strong></p>
-<p style={{color:"var(--tm)",lineHeight:1.8,fontWeight:300,marginBottom:18}}>We've felt the frustration of a website that doesn't convert and agencies that talk big but don't deliver. That's exactly why NetTracePro does things differently — strategy first, design second, results always.</p>
-<p style={{color:"var(--tm)",lineHeight:1.8,fontWeight:300}}>When you work with NetTracePro, you're getting a team that <strong style={{color:"var(--g)"}}>listens first, understands your goals, and builds something tailored to your customers.</strong> Every pixel, every keyword, every strategy is crafted with YOUR business in mind.</p></div></FX>
-<FX dir="r"><div style={{display:"flex",flexDirection:"column",gap:14}}><img src={teamPhoto} alt="NetTracePro Team — Houston Web Design Agency" style={{width:'50%', height:280, objectFit:'contain', borderRadius:10, display:'block', margin:'0 auto'}}/><div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12}}>{[{n:"15+",l:"Happy Clients"},{n:"4+",l:"Years Strong"},{n:"100%",l:"Satisfaction"},{n:"24/7",l:"Support"}].map((s,i)=><div key={i} className="abst"><div className="stn" style={{fontSize:22}}>{s.n}</div><div style={{fontSize:10,color:"var(--td)",textTransform:"uppercase",letterSpacing:1}}>{s.l}</div></div>)}</div></div></FX></div></section>
-<section className="sec" style={{paddingTop:0}}><F><div className="hdr" style={{textAlign:"center"}}><div className="label">The NetTracePro Process</div><h2 className="title">How We Take Care of You</h2><p className="sub" style={{margin:"0 auto",textAlign:"center"}}>Every NetTracePro project follows our proven process — designed to keep you informed and confident from day one.</p></div></F>
-<div className="prg">{[{n:"01",t:"We Listen",d:"We start with a real conversation about your vision, customers, and goals. No templates — just your unique needs.",i:"💬"},{n:"02",t:"We Plan",d:"Together we map out strategy, timelines, and deliverables. NetTracePro believes in zero surprises.",i:"📋"},{n:"03",t:"We Build",d:"Our Houston team brings your vision to life with clean code, stunning design, and SEO built in from the start.",i:"⚡"},{n:"04",t:"We Launch",d:"Go-live is just the beginning. NetTracePro provides ongoing support as your business grows.",i:"🚀"}].map((s,i)=><F key={i} d={i*.1}><div className="prc"><div className="prc-n">{s.n}</div><div style={{fontSize:28,marginBottom:10}}>{s.i}</div><h3 style={{color:"var(--w)",fontSize:17,fontWeight:600,marginBottom:6}}>{s.t}</h3><p style={{color:"var(--tm)",fontSize:13,lineHeight:1.6,fontWeight:300}}>{s.d}</p></div></F>)}</div></section>
-<FaqSection/>
-<div className="cta"><F><h2 className="cta-h">Let's Build <span className="acc">Together</span> with NetTracePro</h2><p className="cta-p">Your vision. NetTracePro's expertise. A website that works hard for your Houston business.</p><a href="#" onClick={e=>{e.preventDefault();go("contact")}} className="btn bg" style={{position:"relative"}}>Start the Conversation <A/></a></F></div></>;
+  const[tilt,setTilt]=useState({x:0,y:0});
+  useEffect(()=>{
+    const onMove=e=>{
+      const cx=window.innerWidth/2,cy=window.innerHeight/2;
+      setTilt({x:(e.clientY-cy)/cy*4,y:-(e.clientX-cx)/cx*4});
+    };
+    window.addEventListener('mousemove',onMove);
+    return()=>window.removeEventListener('mousemove',onMove);
+  },[]);
+  const values=[
+    {i:<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00E676" strokeWidth="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>,t:"Strategy First",d:"We plan before we build. Every decision is tied to your goals."},
+    {i:<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00E676" strokeWidth="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>,t:"Built to Rank",d:"SEO is baked into every site we create, not bolted on after."},
+    {i:<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00E676" strokeWidth="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,t:"Real Partnership",d:"You get direct access to us, not a project manager or account rep."},
+    {i:<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00E676" strokeWidth="1.8"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>,t:"Beyond Launch",d:"We support you after go-live. Your growth is ongoing, so is our work."},
+  ];
+  return<div className="ab-page">
+    <div className="ab-bg"/><div className="ab-fog1"/><div className="ab-fog2"/>
+    {/* HERO */}
+    <div className="ab-hero">
+      <F><span className="label">About NetTracePro</span></F>
+      <F d={.08}><h1 className="ab-h1">Built Different. <span className="acc">By Design.</span></h1></F>
+      <F d={.15}><p className="ab-sub">We started NetTracePro in Houston with a simple belief — every business deserves a website that actually works. Not just looks good. Works.</p></F>
+    </div>
+    {/* 3D VALUES GRID */}
+    <div className="ab-scene" style={{transform:`perspective(1200px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`}}>
+      <div className="ab-grid">
+        {values.map((v,i)=><div key={i} className="ab-card" style={{
+          transform:`translateZ(${[40,-20,30,-30][i]}px)`,
+          animationDelay:`${i*0.4}s`
+        }}>
+          <div className="ab-card-icon">{v.i}</div>
+          <h3 className="ab-card-t">{v.t}</h3>
+          <p className="ab-card-d">{v.d}</p>
+        </div>)}
+      </div>
+    </div>
+    {/* STATS ROW */}
+    <div className="ab-stats">
+      {[{n:"15+",l:"Projects Delivered"},{n:"4+",l:"Years in Houston"},{n:"100%",l:"Client Satisfaction"},{n:"24/7",l:"Support"}].map((s,i)=>
+        <F key={i} d={i*.06}><div className="ab-stat">
+          <div className="ab-stat-n">{s.n}</div>
+          <div className="ab-stat-l">{s.l}</div>
+        </div></F>
+      )}
+    </div>
+    {/* PROCESS — minimal */}
+    <div className="ab-process">
+      <F><h2 className="ab-process-h">How We Work</h2></F>
+      <div className="ab-steps">
+        {[
+          {t:"We Listen",i:<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00E676" strokeWidth="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>},
+          {t:"We Plan",i:<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00E676" strokeWidth="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>},
+          {t:"We Build",i:<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00E676" strokeWidth="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>},
+          {t:"We Launch",i:<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00E676" strokeWidth="1.8"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg>},
+        ].map((s,i)=>
+          <F key={i} d={i*.08}><div className="ab-step">
+            <div className="ab-step-i">{s.i}</div>
+            <div className="ab-step-t">{s.t}</div>
+          </div></F>
+        )}
+      </div>
+    </div>
+    <FaqSection/>
+    <div className="cta"><F><h2 className="cta-h">Let's Build <span className="acc">Together</span></h2><p className="cta-p">Your vision. NetTracePro's expertise. A website that works for your Houston business.</p><a href="#" onClick={e=>{e.preventDefault();go("contact")}} className="btn bg" style={{position:"relative"}}>Start the Conversation <A/></a></F></div>
+  </div>;
 };
 
 /* === PORTFOLIO === */
@@ -322,9 +402,54 @@ const Portfolio=({go})=>{
     description:"Browse NetTracePro's portfolio of web design, development, and SEO projects. Real results for Houston businesses across industries.",
     keywords:"NetTracePro portfolio, web design portfolio Houston, NetTracePro projects, website examples Houston, digital agency work"
   });
-  return<><PB l="NetTracePro Work" t="Projects That Speak For Themselves" s="Real NetTracePro results for real Houston businesses."/>
-<section className="sec"><div className="ptg">{PR.map((p,i)=><F key={i} d={i*.12}><div className="ptc"><div className="ptw"><img className="pim" src={p.img} alt={`NetTracePro — ${p.n}`}/><div className="pn">0{i+1}</div></div><div className="ptb"><div className="pct">{p.c}</div><h3 style={{color:"var(--w)",fontSize:20,fontWeight:700,marginBottom:6}}>{p.n}</h3><p style={{color:"var(--tm)",fontSize:13,lineHeight:1.6,fontWeight:300}}>{p.d}</p></div></div></F>)}</div>
-<F><div style={{textAlign:"center",marginTop:50}}><div className="cta-box"><h3 style={{color:"var(--w)",fontSize:22,fontWeight:700,marginBottom:10,position:"relative"}}>Have a Project in Mind?</h3><p style={{color:"var(--tm)",fontSize:13,lineHeight:1.6,fontWeight:300,marginBottom:20,position:"relative"}}>Every great NetTracePro project starts with a conversation. Let's build something together.</p><a href="#" onClick={e=>{e.preventDefault();go("contact")}} className="btn bg" style={{position:"relative"}}>Start Your Project with NetTracePro <A/></a></div></div></F></section></>;
+  const sceneRef=useRef(null);
+  const[tilt,setTilt]=useState({x:0,y:0});
+  useEffect(()=>{
+    const onMove=e=>{
+      const cx=window.innerWidth/2,cy=window.innerHeight/2;
+      setTilt({x:(e.clientY-cy)/cy*5,y:-(e.clientX-cx)/cx*5});
+    };
+    window.addEventListener('mousemove',onMove);
+    return()=>window.removeEventListener('mousemove',onMove);
+  },[]);
+  const depths=[1,.75,.85,.65];
+  return<div className="pf-page">
+    <div className="pf-bg"/><div className="pf-fog"/>
+    {/* HEADER */}
+    <div className="pf-header">
+      <F><div className="label" style={{textAlign:"center"}}>NetTracePro Work</div></F>
+      <F d={.08}><h1 className="pf-h1">Projects That <span className="acc">Speak For Themselves</span></h1></F>
+      <F d={.15}><p className="pf-sub">Every project is built to perform. Beautiful design backed by strategy, SEO, and real results for real Houston businesses.</p></F>
+    </div>
+    {/* 3D GRID */}
+    <div className="pf-scene" style={{transform:`perspective(1400px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`}} ref={sceneRef}>
+      <div className="pf-grid">
+        {PR.map((p,i)=><div key={i} className="pf-card" style={{
+          transform:`translateZ(${(depths[i]-0.75)*70}px)`,
+          animationDelay:`${i*0.5}s`
+        }}>
+          <div className="pf-img-wrap">
+            <img src={p.img} alt={`NetTracePro — ${p.n}`} className="pf-img"/>
+            <div className="pf-img-overlay"/>
+            <div className="pf-cat">{p.c}</div>
+          </div>
+          <div className="pf-info">
+            <h3 className="pf-name">{p.n}</h3>
+            <p className="pf-desc">{p.d}</p>
+            <div className="pf-year">{p.y}</div>
+          </div>
+        </div>)}
+      </div>
+    </div>
+    {/* CTA */}
+    <div className="pf-cta">
+      <F><div className="pf-cta-box">
+        <h3>Have a project in mind?</h3>
+        <p>Every great NetTracePro project starts with a conversation.</p>
+        <a href="#" onClick={e=>{e.preventDefault();go("contact")}} className="btn bg">Start Your Project <A/></a>
+      </div></F>
+    </div>
+  </div>;
 };
 
 /* === TESTIMONIALS === */
@@ -334,31 +459,227 @@ const Testimonials=({go})=>{
     description:"Read what NetTracePro clients say about our web design, development, and SEO services. 100% client satisfaction. 5-star reviews from Houston businesses.",
     keywords:"NetTracePro reviews, NetTracePro testimonials, web design agency Houston reviews, client feedback NetTracePro"
   });
-  return<><PB l="Client Testimonials" t="NetTracePro Clients Love Us" s="Don't just take our word for it — hear from Houston businesses NetTracePro has helped grow."/>
-<section className="sec"><div className="teg">{TE.map((t,i)=><F key={i} d={i*.15}><div className="tec"><div className="tec-top"><div className="tav" style={{background:t.bg,width:48,height:48}}>{IC.u}</div><div><div style={{color:"var(--w)",fontWeight:600,fontSize:14}}>{t.a}</div><div style={{color:"var(--td)",fontSize:12}}>{t.r}</div></div></div>
-<div className="tst" style={{justifyContent:"flex-start",margin:"14px 0"}}>{[...Array(5)].map((_,j)=><S key={j}/>)}</div>
-<p style={{color:"var(--tm)",fontSize:14,lineHeight:1.7,fontWeight:300,fontStyle:"italic"}}>"{t.q}"</p></div></F>)}</div>
-<F><div style={{display:"flex",justifyContent:"center",gap:36,flexWrap:"wrap",marginTop:50,paddingTop:36,borderTop:"1px solid var(--bd)"}}>{[{n:"15+",l:"Projects Completed"},{n:"100%",l:"On-Time Delivery"},{n:"100%",l:"Client Satisfaction"},{n:"5★",l:"Average Rating"}].map((s,i)=><div key={i} style={{textAlign:"center"}}><div className="stn" style={{fontSize:30}}>{s.n}</div><div style={{fontSize:10,color:"var(--td)",textTransform:"uppercase",letterSpacing:1.5,marginTop:4}}>{s.l}</div></div>)}</div></F></section></>;
+  const sceneRef=useRef(null);
+  const[tilt,setTilt]=useState({x:0,y:0});
+  useEffect(()=>{
+    const onMove=e=>{
+      const cx=window.innerWidth/2,cy=window.innerHeight/2;
+      const dx=(e.clientX-cx)/cx,dy=(e.clientY-cy)/cy;
+      setTilt({x:dy*8,y:-dx*8});
+    };
+    window.addEventListener('mousemove',onMove);
+    return()=>window.removeEventListener('mousemove',onMove);
+  },[]);
+
+  // Extended testimonials for the grid
+  const ALL_TE=[
+    {q:"NetTracePro transformed our entire digital presence. Results within weeks.",a:"Takween AI",r:"Web Design",bg:"linear-gradient(135deg,#E8A020,#F0C060)",s:5},
+    {q:"Our new site looks incredible and brought in new clients we never would have found.",a:"M.A. CPA Inc.",r:"Accounting",bg:"linear-gradient(135deg,#4CAF50,#2E7D32)",s:5},
+    {q:"Professionalism and dedication unmatched. They consistently exceed expectations.",a:"SimpleTouch POS",r:"Web App",bg:"linear-gradient(135deg,#42A5F5,#1565C0)",s:5},
+    {q:"Best investment we made for our business. The website practically sells itself.",a:"Houston Client",r:"E-Commerce",bg:"linear-gradient(135deg,#AB47BC,#6A1B9A)",s:5},
+    {q:"They delivered exactly what we envisioned, on time and on budget. Truly exceptional.",a:"Local Business",r:"Web Design",bg:"linear-gradient(135deg,#EF5350,#B71C1C)",s:5},
+    {q:"Our Google rankings jumped to page one within two months. Incredible SEO work.",a:"Service Company",r:"SEO Client",bg:"linear-gradient(135deg,#26C6DA,#00838F)",s:5},
+    {q:"The team at NetTracePro genuinely cares. They checked in throughout the whole process.",a:"Startup Founder",r:"Full Package",bg:"linear-gradient(135deg,#FF7043,#BF360C)",s:5},
+    {q:"Clean code, beautiful design, and they explained everything along the way.",a:"Tech Company",r:"Development",bg:"linear-gradient(135deg,#66BB6A,#1B5E20)",s:5},
+    {q:"Worth every penny. Our old site was costing us customers. This one converts.",a:"Retail Client",r:"Redesign",bg:"linear-gradient(135deg,#FFA726,#E65100)",s:5},
+  ];
+
+  // Layout: 3 columns, items at different depths for parallax
+  const cols=[[0,3,6],[1,4,7],[2,5,8]];
+  const depths=[1,0.7,0.85,0.6,1,0.75,0.9,0.65,1];
+
+  return<div className="tm-page" ref={sceneRef}>
+    {/* BG */}
+    <div className="tm-bg"/>
+    <div className="tm-fog tm-fog1"/><div className="tm-fog tm-fog2"/>
+
+    {/* HEADER */}
+    <div className="tm-header">
+      <F><div className="label" style={{justifyContent:"center",display:"flex"}}>Client Testimonials</div></F>
+      <F d={.08}><h1 className="tm-h1">NetTracePro <span className="acc">Clients Love Us</span></h1></F>
+      <F d={.15}><p className="tm-sub">Don't take our word for it. Here's what Houston businesses say after working with NetTracePro.</p></F>
+      <F d={.2}><div className="tm-stars">{[...Array(5)].map((_,i)=><S key={i}/>)}<span className="tm-rating">5.0 average across all projects</span></div></F>
+    </div>
+
+    {/* 3D GRID */}
+    <div className="tm-scene" style={{transform:`perspective(1200px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`}}>
+      <div className="tm-grid">
+        {cols.map((col,ci)=><div key={ci} className="tm-col" style={{marginTop:`${ci===1?-40:ci===2?20:0}px`}}>
+          {col.map((ti,ri)=>{
+            const t=ALL_TE[ti];
+            const d=depths[ti];
+            return<div key={ri} className="tm-card" style={{
+              transform:`translateZ(${(d-0.8)*60}px) scale(${0.92+d*0.1})`,
+              opacity:0.7+d*0.3,
+              animationDelay:`${ti*0.4}s`
+            }}>
+              <div className="tm-card-top">
+                <div className="tm-av" style={{background:t.bg}}>{IC.u}</div>
+                <div>
+                  <div className="tm-name">{t.a}</div>
+                  <div className="tm-role">{t.r}</div>
+                </div>
+                <div className="tm-card-stars">{[...Array(t.s)].map((_,j)=><S key={j}/>)}</div>
+              </div>
+              <p className="tm-quote">"{t.q}"</p>
+              <div className="tm-card-bottom">
+                <div className="tm-verified">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--g)"><path d="M20 6L9 17l-5-5"/></svg>
+                  Verified Client
+                </div>
+              </div>
+            </div>;
+          })}
+        </div>)}
+      </div>
+    </div>
+
+    {/* STATS */}
+    <div className="tm-stats-bar">
+      {[{n:"15+",l:"Projects"},{n:"100%",l:"Satisfaction"},{n:"5★",l:"Rating"},{n:"4+",l:"Years"}].map((s,i)=>
+        <F key={i} d={i*.08}><div className="tm-stat">
+          <div className="tm-stat-n">{s.n}</div>
+          <div className="tm-stat-l">{s.l}</div>
+        </div></F>
+      )}
+    </div>
+
+    <div style={{textAlign:"center",paddingBottom:60,position:"relative",zIndex:10}}>
+      <F><a href="#" onClick={e=>{e.preventDefault();go("contact")}} className="btn bg">Start Your Project with NetTracePro <A/></a></F>
+    </div>
+  </div>;
 };
 
 /* === CONTACT === */
+const ContactParticles=()=>{
+  const c=useRef(null);
+  useEffect(()=>{
+    const cv=c.current;const ctx=cv.getContext('2d');
+    let w=cv.width=cv.offsetWidth,h=cv.height=cv.offsetHeight;
+    const nodes=Array.from({length:55},()=>({
+      x:Math.random()*w,y:Math.random()*h,
+      vx:(Math.random()-.5)*.5,vy:(Math.random()-.5)*.5,
+      r:Math.random()*2+1,
+      pulse:Math.random()*Math.PI*2,
+      speed:Math.random()*.02+.01
+    }));
+    const sparks=Array.from({length:8},()=>({
+      x:Math.random()*w,y:Math.random()*h,
+      life:Math.random(),speed:Math.random()*.003+.002,
+      size:Math.random()*60+30
+    }));
+    let af;
+    const draw=()=>{
+      ctx.clearRect(0,0,w,h);
+      // floating spark glows
+      sparks.forEach(s=>{
+        s.life+=s.speed;if(s.life>1)s.life=0;
+        const alpha=Math.sin(s.life*Math.PI)*.15;
+        const grad=ctx.createRadialGradient(s.x,s.y,0,s.x,s.y,s.size);
+        grad.addColorStop(0,`rgba(0,230,118,${alpha})`);
+        grad.addColorStop(1,'rgba(0,230,118,0)');
+        ctx.beginPath();ctx.arc(s.x,s.y,s.size,0,Math.PI*2);
+        ctx.fillStyle=grad;ctx.fill();
+      });
+      // nodes
+      nodes.forEach(p=>{
+        p.x+=p.vx;p.y+=p.vy;p.pulse+=p.speed;
+        if(p.x<0||p.x>w)p.vx*=-1;if(p.y<0||p.y>h)p.vy*=-1;
+        const glow=.3+Math.sin(p.pulse)*.2;
+        ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle=`rgba(0,230,118,${glow})`;ctx.fill();
+        // connections
+        nodes.forEach(q=>{
+          const dx=p.x-q.x,dy=p.y-q.y,d=Math.sqrt(dx*dx+dy*dy);
+          if(d<130){
+            ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);
+            ctx.strokeStyle=`rgba(0,230,118,${.12*(1-d/130)})`;
+            ctx.lineWidth=.6;ctx.stroke();
+          }
+        });
+      });
+      af=requestAnimationFrame(draw);
+    };
+    draw();
+    const rs=()=>{w=cv.width=cv.offsetWidth;h=cv.height=cv.offsetHeight;};
+    window.addEventListener('resize',rs);
+    return()=>{cancelAnimationFrame(af);window.removeEventListener('resize',rs);};
+  },[]);
+  return<canvas ref={c} style={{position:'absolute',inset:0,width:'100%',height:'100%',pointerEvents:'none',zIndex:1}}/>;
+};
+
 const Contact=({go})=>{
   useSEO({
     title:"Contact NetTracePro | Houston Web Design & SEO Agency",
-    description:"Contact NetTracePro — Houston's top web design and SEO agency. Call (713) 269-9658 or email info@nettracepro.com. Free discovery call available.",
+    description:"Contact NetTracePro, Houston's top web design and SEO agency. Call (713) 269-9658 or email info@nettracepro.com. Free discovery call available.",
     keywords:"contact NetTracePro, NetTracePro Houston phone, hire web designer Houston, get a website quote Houston, NetTracePro email"
   });
-  const[f,sf]=useState({n:"",e:"",p:"",s:"",m:""});
-  return<><PB l="Contact NetTracePro" t="Let's Start Something Great" s="Tell NetTracePro about your project — we'll respond within 24 hours."/>
-<section className="sec"><div className="ctg"><FX dir="l"><div><h2 className="title" style={{fontSize:22}}>Get in Touch with NetTracePro</h2><p style={{color:"var(--tm)",lineHeight:1.7,fontWeight:300,marginBottom:28}}>Whether you have a detailed brief or just a rough idea, NetTracePro would love to hear from you. No pressure — just a real conversation about your Houston business goals.</p>
-{[{i:<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>,t:<a href="tel:+17132699658">(713) 269-9658</a>},
-{i:<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>,t:<a href="mailto:info@nettracepro.com">info@nettracepro.com</a>},
-{i:<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>,t:"Houston, TX"},
-{i:<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>,t:"Available 10AM–5PM CT"}
-].map((c,i)=><div key={i} className="cd"><div className="cdi">{c.i}</div><div className="cdt">{c.t}</div></div>)}</div></FX>
-<FX dir="r"><div className="ctfc"><div className="ctfg"/><h3 style={{color:"var(--w)",fontSize:18,fontWeight:600,marginBottom:18,position:"relative"}}>Send NetTracePro a Message</h3>
-<div className="fm"><div className="fr"><input className="fi" placeholder="Your Name" value={f.n} onChange={e=>sf({...f,n:e.target.value})}/><input className="fi" placeholder="Your Email" value={f.e} onChange={e=>sf({...f,e:e.target.value})}/></div><div className="fr"><input className="fi" placeholder="Phone" value={f.p} onChange={e=>sf({...f,p:e.target.value})}/><input className="fi" placeholder="Subject" value={f.s} onChange={e=>sf({...f,s:e.target.value})}/></div>
-<textarea className="fi fta" placeholder="Tell NetTracePro about your project..." value={f.m} onChange={e=>sf({...f,m:e.target.value})}/><button className="fbt" onClick={()=>{alert("Thank you! NetTracePro will be in touch within 24 hours.");sf({n:"",e:"",p:"",s:"",m:""})}}>Send Message <A/></button></div></div></FX></div></section></>
+  return<div className="ct-page">
+    {/* CANVAS PARTICLE NETWORK */}
+    <ContactParticles/>
+    {/* LAYERED BACKGROUND EFFECTS */}
+    <div className="ct-bg-glow"/>
+    <div className="ct-bg-grid"/>
+
+    <div className="ct-scanline"/>
+
+    {/* MAIN CONTENT */}
+    <div className="ct-content">
+      {/* LEFT */}
+      <div className="ct-left">
+        <F><span className="label">Houston, TX</span></F>
+        <F d={.08}><h1 className="ct-h1">Let's build something <span className="acc">worth talking about.</span></h1></F>
+        <F d={.15}><p className="ct-body">We started NetTracePro because we were tired of agencies that hide behind forms, charge too much, and disappear after launch. When you reach out to us, you get a real person who actually cares whether your business grows.</p></F>
+        <F d={.2}><p className="ct-body">No pitch deck. No pressure. Just a straight conversation about what you need and whether we're the right fit.</p></F>
+        <F d={.25}><div className="ct-badges">
+          {["100% Satisfaction","4+ Years","15+ Projects","Houston Based"].map((b,i)=><span key={i} className="ct-badge">{b}</span>)}
+        </div></F>
+      </div>
+
+      {/* RIGHT */}
+      <div className="ct-right">
+        <F d={.1}><div className="ct-action-card ct-phone">
+          <div className="ct-ac-glow"/>
+          <div className="ct-ac-pulse"/>
+          <div className="ct-ac-top">
+            <div className="ct-ac-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div>
+              <div className="ct-ac-label">Call us directly</div>
+              <div className="ct-ac-val">(713) 269-9658</div>
+            </div>
+          </div>
+          <p className="ct-ac-desc">Pick up the phone and call us. We answer. No voicemail maze, no call center. Mon to Fri, 10AM to 5PM CT.</p>
+          <a href="tel:+17132699658" className="ct-ac-btn ct-btn-green">Call Now <A/></a>
+        </div></F>
+
+        <F d={.18}><div className="ct-action-card ct-email">
+          <div className="ct-ac-glow ct-glow-blue"/>
+          <div className="ct-ac-top">
+            <div className="ct-ac-icon ct-icon-blue">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
+            </div>
+            <div>
+              <div className="ct-ac-label">Send an email</div>
+              <div className="ct-ac-val">info@nettracepro.com</div>
+            </div>
+          </div>
+          <p className="ct-ac-desc">Prefer email? Send us a message anytime, even at midnight. We read every one and reply fast.</p>
+          <a href="mailto:info@nettracepro.com" className="ct-ac-btn ct-btn-blue">Email Us <A/></a>
+        </div></F>
+
+        <F d={.26}><div className="ct-stat-row">
+          {[{n:"24hr",l:"Max response time"},{n:"Free",l:"First consultation"},{n:"5★",l:"Client rating"}].map((s,i)=>
+            <div key={i} className="ct-mini-stat">
+              <div className="ct-mini-n">{s.n}</div>
+              <div className="ct-mini-l">{s.l}</div>
+            </div>
+          )}
+        </div></F>
+      </div>
+    </div>
+  </div>;
 };
 
 /* === APP === */
@@ -370,8 +691,18 @@ export default function App(){
 return<><style>{`@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 :root{--bg:#0A0A0A;--sf:#111;--bd:#222;--bl:#2a2a2a;--g:#00E676;--gd:rgba(0,230,118,.08);--gk:#00C853;--w:#FFF;--t:#E0E0E0;--tm:#888;--td:#555}
 *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--t);overflow-x:hidden;-webkit-font-smoothing:antialiased}
-.nv{position:fixed;top:0;left:0;right:0;z-index:1000;padding:20px 60px;display:flex;align-items:center;justify-content:space-between;transition:all .4s}.nv.sc{background:rgba(10,10,10,.95);backdrop-filter:blur(20px);padding:14px 60px;border-bottom:1px solid var(--bd)}
-.nl{display:flex;align-items:center;text-decoration:none}.nl img{background:transparent !important;display:block}.nk{display:flex;gap:28px;align-items:center}.nk a{color:var(--tm);text-decoration:none;font-size:13px;font-weight:500;transition:color .3s}.nk a:hover{color:var(--g)}.nc{background:var(--g)!important;color:var(--bg)!important;padding:10px 24px!important;border-radius:6px;font-weight:600!important}
+.nv{position:fixed;top:0;left:0;right:0;z-index:1000;transition:all .4s}.nv.sc{background:rgba(10,10,10,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--bd)}
+.nv-inner{display:flex;align-items:center;justify-content:space-between;padding:18px 60px;max-width:1400px;margin:0 auto;width:100%}
+.nl{display:flex;align-items:center;text-decoration:none}.nl img{background:transparent !important;display:block}
+.nk{display:flex;gap:28px;align-items:center}.nk a{color:var(--tm);text-decoration:none;font-size:13px;font-weight:500;transition:color .3s}.nk a:hover{color:var(--g)}.nc{background:var(--g)!important;color:var(--bg)!important;padding:10px 24px!important;border-radius:6px;font-weight:600!important}
+.nv-burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;z-index:1001}
+.bar{display:block;width:22px;height:2px;background:var(--w);border-radius:2px;transition:all .3s}
+.bar1.open{transform:rotate(45deg) translate(5px,5px)}
+.bar2.open{opacity:0}
+.bar3.open{transform:rotate(-45deg) translate(5px,-5px)}
+.nv-mob{display:none;flex-direction:column;background:rgba(10,10,10,.98);backdrop-filter:blur(20px);border-top:1px solid var(--bd);padding:20px 24px;gap:4px}
+.nv-mob a{color:var(--t);text-decoration:none;font-size:15px;font-weight:500;padding:14px 0;border-bottom:1px solid var(--bd);display:block;transition:color .3s}.nv-mob a:last-child{border-bottom:none}.nv-mob a:hover{color:var(--g)}
+.nmc{background:var(--g)!important;color:var(--bg)!important;padding:14px 24px!important;border-radius:8px;font-weight:700!important;text-align:center;margin-top:8px;border:none!important}
 .hero{min-height:100vh;display:flex;align-items:center;padding:140px 60px 100px;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;top:0;right:0;width:70%;height:100%;background:radial-gradient(ellipse at 70% 40%,rgba(0,230,118,.08),transparent 55%);pointer-events:none;animation:hg 5s ease-in-out infinite}@keyframes hg{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.1)}}
 .hg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;animation:gd 15s linear infinite}@keyframes gd{0%{background-position:0 0}100%{background-position:60px 60px}}
@@ -401,7 +732,7 @@ return<><style>{`@import url('https://fonts.googleapis.com/css2?family=Poppins:w
 .si{width:48px;height:48px;background:var(--gd);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--g);margin-bottom:20px;transition:all .3s}.scard:hover .si{background:var(--g);color:var(--bg);transform:scale(1.1) rotate(-5deg)}
 .scard h3{font-size:18px;font-weight:600;color:var(--w);margin-bottom:10px}.scard p{font-size:14px;line-height:1.65;color:var(--tm);font-weight:300;margin-bottom:18px}.sl{display:inline-flex;align-items:center;gap:6px;color:var(--g);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;transition:gap .3s}.scard:hover .sl{gap:12px}
 .pg{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}.pc{background:var(--sf);border:1px solid var(--bd);border-radius:12px;overflow:hidden;transition:all .4s}.pc:hover{border-color:rgba(0,230,118,.3);transform:translateY(-4px)}
-.piw{overflow:hidden;position:relative}.piw::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(10,10,10,.7),transparent 50%);pointer-events:none}.pim{width:100%;aspect-ratio:16/10;object-fit:cover;display:block;transition:transform .6s}.pc:hover .pim,.ptc:hover .pim{transform:scale(1.06)}
+.piw{overflow:hidden;position:relative}.piw::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(10,10,10,.7),transparent 50%);pointer-events:none}.pim{width:100%;aspect-ratio:16/10;object-fit:contain;display:block;transition:transform .6s;background:#0d0d0d}.pc:hover .pim,.ptc:hover .pim{transform:scale(1.06)}
 .pn{font-size:48px;font-weight:800;color:rgba(0,230,118,.12);position:absolute;top:12px;right:16px;line-height:1;z-index:2}.pbd{padding:20px 24px}.pct{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--g);font-weight:600;margin-bottom:6px}.pc h3,.ptb h3{font-size:20px;font-weight:700;color:var(--w);margin-bottom:4px}.py{font-size:12px;color:var(--td)}
 .ts{background:var(--sf);border-top:1px solid var(--bd);border-bottom:1px solid var(--bd)}
 .tcard{max-width:700px;margin:0 auto;background:var(--bg);border:1px solid var(--bd);border-radius:16px;padding:44px 40px 32px;position:relative;overflow:hidden;text-align:center}.tglow{position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:300px;height:200px;background:radial-gradient(ellipse,rgba(0,230,118,.06),transparent 70%);pointer-events:none}
@@ -411,9 +742,42 @@ return<><style>{`@import url('https://fonts.googleapis.com/css2?family=Poppins:w
 .ta{font-size:13px;font-weight:600;color:var(--g);text-transform:uppercase;letter-spacing:1px;text-align:left}.tar{display:flex;align-items:center;gap:12px;justify-content:center}.tav{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .tds{display:flex;gap:8px;justify-content:center;margin-top:24px;position:relative;z-index:2}.tdt{width:8px;height:8px;border-radius:50%;background:var(--bl);border:none;cursor:pointer;transition:all .4s}.tdt.act{background:var(--g);width:28px;border-radius:8px;box-shadow:0 0 12px rgba(0,230,118,.4)}
 .cta{padding:80px 60px;text-align:center;position:relative;overflow:hidden}.cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(0,230,118,.06),transparent 55%)}.cta-h{font-size:clamp(28px,3.5vw,44px);font-weight:700;color:var(--w);margin-bottom:16px;position:relative}.cta-p{font-size:16px;color:var(--tm);max-width:480px;margin:0 auto 36px;font-weight:300;line-height:1.7;position:relative}
-.cd{display:flex;align-items:center;gap:14px;margin-bottom:18px}.cdi{width:40px;height:40px;background:var(--gd);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--g);flex-shrink:0;transition:all .3s}.cd:hover .cdi{background:var(--g);color:var(--bg)}.cdt{font-size:14px;color:var(--tm)}.cdt a{color:var(--t);text-decoration:none}.cdt a:hover{color:var(--g)}
-.fm{display:flex;flex-direction:column;gap:14px}.fr{display:grid;grid-template-columns:1fr 1fr;gap:14px}.fi{width:100%;padding:13px 16px;background:var(--bg);border:1px solid var(--bd);border-radius:6px;font-size:14px;font-family:'Poppins',sans-serif;font-weight:300;color:var(--t);outline:none;transition:all .4s}.fi:focus{border-color:var(--g);box-shadow:0 0 15px rgba(0,230,118,.1)}.fi::placeholder{color:var(--td)}.fta{resize:vertical;min-height:110px}
-.fbt{background:var(--g);color:var(--bg);padding:14px 36px;border:none;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Poppins',sans-serif;transition:all .3s;align-self:flex-start;display:inline-flex;align-items:center;gap:8px}.fbt:hover{background:var(--gk);transform:translateY(-2px)}
+/* ── CONTACT PAGE ── */
+.ct-page{min-height:100vh;position:relative;overflow:hidden;display:flex;align-items:center;padding:120px 60px 80px;background:#070a0d}
+.ct-bg-glow{position:absolute;inset:0;background:radial-gradient(ellipse at 25% 60%,rgba(0,230,118,.16),transparent 45%),radial-gradient(ellipse at 75% 20%,rgba(0,180,80,.09),transparent 40%),radial-gradient(ellipse at 60% 85%,rgba(100,150,255,.08),transparent 38%);pointer-events:none}
+.ct-bg-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,230,118,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(0,230,118,.07) 1px,transparent 1px);background-size:44px 44px;pointer-events:none;mask-image:radial-gradient(ellipse at 25% 50%,black 15%,rgba(0,0,0,.3) 45%,transparent 70%);animation:gd 20s linear infinite}
+.ct-bg-orb{display:none}
+
+@keyframes rp{from{transform:translate(-50%,-50%) rotate(0deg)}to{transform:translate(-50%,-50%) rotate(360deg)}}
+.ct-scanline{position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.03) 3px,rgba(0,0,0,.03) 4px);pointer-events:none;z-index:0}
+.ct-content{display:grid;grid-template-columns:1.1fr 1fr;gap:80px;align-items:center;max-width:1280px;margin:0 auto;width:100%;position:relative;z-index:2}
+.ct-left{display:flex;flex-direction:column;gap:20px}
+.ct-h1{font-size:clamp(36px,4vw,58px);font-weight:800;color:var(--w);line-height:1.1;letter-spacing:-1.5px}
+.ct-body{font-size:15px;line-height:1.8;color:var(--tm);font-weight:300;max-width:500px}
+.ct-badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.ct-badge{background:rgba(0,230,118,.06);border:1px solid rgba(0,230,118,.18);color:var(--g);font-size:11px;font-weight:600;padding:6px 14px;border-radius:100px;letter-spacing:.5px;transition:all .3s}.ct-badge:hover{background:rgba(0,230,118,.12);border-color:rgba(0,230,118,.35)}
+.ct-right{display:flex;flex-direction:column;gap:16px}
+.ct-action-card{background:rgba(17,17,17,.9);backdrop-filter:blur(12px);border:1px solid var(--bd);border-radius:16px;padding:32px;position:relative;overflow:hidden;transition:all .4s}
+.ct-action-card:hover{transform:translateY(-5px);box-shadow:0 30px 60px rgba(0,0,0,.5)}
+.ct-phone{border-color:rgba(0,230,118,.2)}.ct-phone:hover{border-color:rgba(0,230,118,.4);box-shadow:0 30px 60px rgba(0,0,0,.5),0 0 40px rgba(0,230,118,.06)}
+.ct-email{border-color:rgba(130,170,255,.15)}.ct-email:hover{border-color:rgba(130,170,255,.3);box-shadow:0 30px 60px rgba(0,0,0,.5),0 0 40px rgba(130,170,255,.05)}
+.ct-ac-glow{position:absolute;top:-50px;right:-50px;width:220px;height:220px;background:radial-gradient(circle,rgba(0,230,118,.1),transparent 70%);pointer-events:none;animation:hg 4s ease-in-out infinite}
+.ct-glow-blue{background:radial-gradient(circle,rgba(130,170,255,.1),transparent 70%)}
+.ct-ac-pulse{position:absolute;top:20px;right:20px;width:8px;height:8px;border-radius:50%;background:var(--g);box-shadow:0 0 8px var(--g);animation:pu 2s infinite}
+.ct-ac-top{display:flex;align-items:center;gap:16px;margin-bottom:14px}
+.ct-ac-icon{width:50px;height:50px;background:rgba(0,230,118,.1);border:1px solid rgba(0,230,118,.25);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--g);flex-shrink:0;transition:all .4s}.ct-action-card:hover .ct-ac-icon{background:rgba(0,230,118,.18);transform:scale(1.08)}
+.ct-icon-blue{background:rgba(130,170,255,.1);border-color:rgba(130,170,255,.25);color:#82AAFF}.ct-email:hover .ct-icon-blue{background:rgba(130,170,255,.2)}
+.ct-ac-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--td);margin-bottom:4px}
+.ct-ac-val{font-size:20px;font-weight:700;color:var(--w)}
+.ct-ac-desc{font-size:13px;line-height:1.75;color:var(--tm);font-weight:300;margin-bottom:20px}
+.ct-ac-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 26px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;transition:all .3s;width:fit-content;position:relative;overflow:hidden}
+.ct-ac-btn::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);animation:sh 2.5s ease-in-out infinite}
+.ct-btn-green{background:var(--g);color:var(--bg)}.ct-btn-green:hover{background:var(--gk);transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,230,118,.3)}
+.ct-btn-blue{background:rgba(130,170,255,.12);color:#82AAFF;border:1px solid rgba(130,170,255,.25)}.ct-btn-blue:hover{background:rgba(130,170,255,.22);transform:translateY(-2px);box-shadow:0 10px 28px rgba(130,170,255,.15)}
+.ct-stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.ct-mini-stat{background:rgba(17,17,17,.8);backdrop-filter:blur(8px);border:1px solid var(--bd);border-radius:10px;padding:18px 12px;text-align:center;transition:all .3s;position:relative;overflow:hidden}.ct-mini-stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--g),transparent);transform:scaleX(0);transition:transform .4s}.ct-mini-stat:hover{border-color:rgba(0,230,118,.25);transform:translateY(-2px)}.ct-mini-stat:hover::before{transform:scaleX(1)}
+.ct-mini-n{font-size:22px;font-weight:800;color:var(--g);line-height:1}
+.ct-mini-l{font-size:10px;color:var(--td);text-transform:uppercase;letter-spacing:1px;margin-top:5px;line-height:1.3}
 .ft{padding:50px 60px 24px;border-top:1px solid var(--bd)}.fg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:32px}.fb p{font-size:12px;line-height:1.7;color:var(--td);font-weight:300;margin-top:12px;max-width:260px}.fc h4{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--g);font-weight:600;margin-bottom:14px}.fc a{display:block;font-size:12px;color:var(--td);text-decoration:none;margin-bottom:8px;font-weight:300}.fc a:hover{color:var(--g)}.fc span{display:block;font-size:12px;margin-bottom:8px}.fbt{border-top:1px solid var(--bd);padding-top:16px}.fbt p{font-size:11px;color:var(--td)}
 .pb{padding:160px 60px 80px;position:relative;overflow:hidden;text-align:center}.pb-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(0,230,118,.06),transparent 60%);animation:hg 5s ease-in-out infinite}.pb-in{position:relative;z-index:2;max-width:700px;margin:0 auto}.pb-t{font-size:clamp(30px,4vw,50px);font-weight:800;color:var(--w);line-height:1.15;margin-bottom:16px}.pb-s{font-size:16px;color:var(--tm);font-weight:300;line-height:1.7}
 .svr{display:flex;gap:50px;align-items:center;margin-bottom:16px}.svr-img{flex:1;min-width:0}.svr-txt{flex:1;min-width:0}.ftag{display:inline-flex;align-items:center;gap:6px;background:var(--gd);border:1px solid rgba(0,230,118,.1);padding:6px 14px;border-radius:6px;font-size:12px;color:var(--g);font-weight:500}
@@ -444,7 +808,86 @@ return<><style>{`@import url('https://fonts.googleapis.com/css2?family=Poppins:w
 .tf-stat{background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:14px 18px;flex:1;min-width:80px;transition:border-color .3s}.tf-stat:hover{border-color:rgba(0,230,118,.3)}
 .tf-stat-n{font-size:22px;font-weight:800;color:var(--g);line-height:1}
 .tf-stat-l{font-size:10px;color:var(--td);text-transform:uppercase;letter-spacing:1px;margin-top:4px}
-.faq-sec{background:var(--sf);border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);padding:80px 60px}
+/* ── 3D PORTFOLIO PAGE ── */
+.pf-page{min-height:100vh;background:#050505;display:flex;flex-direction:column;align-items:center;padding-top:100px;overflow:hidden;position:relative}
+.pf-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 10%,rgba(0,230,118,.07),transparent 50%),radial-gradient(ellipse at 20% 80%,rgba(0,100,200,.05),transparent 40%);pointer-events:none}
+.pf-fog{position:absolute;width:1000px;height:500px;background:rgba(0,230,118,.03);top:20%;left:50%;transform:translateX(-50%);filter:blur(80px);animation:hg 7s ease-in-out infinite;pointer-events:none}
+.pf-header{text-align:center;padding:0 24px 60px;position:relative;z-index:10;max-width:700px}
+.pf-h1{font-size:clamp(32px,4vw,52px);font-weight:800;color:var(--w);line-height:1.15;margin-bottom:14px;letter-spacing:-1px}
+.pf-sub{font-size:15px;color:var(--tm);font-weight:300;line-height:1.7}
+.pf-scene{width:100%;max-width:1300px;padding:0 40px 60px;transition:transform .12s ease-out;position:relative;z-index:5}
+.pf-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
+.pf-card{background:rgba(12,12,12,.95);border:1px solid rgba(255,255,255,.07);border-radius:18px;overflow:hidden;transition:transform .35s ease,border-color .35s,box-shadow .35s;animation:tmFloat 7s ease-in-out infinite;cursor:pointer}
+.pf-card:hover{border-color:rgba(0,230,118,.35);box-shadow:0 40px 80px rgba(0,0,0,.7),0 0 50px rgba(0,230,118,.08);transform:translateY(-16px) scale(1.02) !important}
+.pf-img-wrap{position:relative;overflow:hidden;height:340px}
+.pf-img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;transition:transform .6s ease}
+.pf-card:hover .pf-img{transform:scale(1.06)}
+.pf-img-overlay{position:absolute;inset:0;background:linear-gradient(0deg,rgba(5,5,5,.95) 0%,rgba(5,5,5,.2) 60%,transparent 100%)}
+.pf-cat{position:absolute;bottom:18px;left:18px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--g);background:rgba(0,230,118,.1);border:1px solid rgba(0,230,118,.25);padding:5px 14px;border-radius:100px;transition:all .3s}.pf-card:hover .pf-cat{background:rgba(0,230,118,.2);border-color:rgba(0,230,118,.5)}
+.pf-info{padding:22px 24px;transition:all .3s}
+.pf-name{font-size:20px;font-weight:700;color:var(--w);margin-bottom:8px;transition:color .3s}.pf-card:hover .pf-name{color:var(--g)}
+.pf-desc{font-size:13px;color:var(--tm);font-weight:300;line-height:1.65;margin-bottom:12px}
+.pf-year{font-size:11px;color:var(--td)}
+.pf-cta{padding:20px 24px 80px;text-align:center;position:relative;z-index:10;width:100%}
+.pf-cta-box{background:rgba(17,17,17,.8);backdrop-filter:blur(10px);border:1px solid var(--bd);border-radius:16px;padding:40px;max-width:560px;margin:0 auto}
+.pf-cta-box h3{font-size:22px;font-weight:700;color:var(--w);margin-bottom:8px}
+.pf-cta-box p{font-size:14px;color:var(--tm);font-weight:300;margin-bottom:24px}
+/* ── 3D ABOUT PAGE ── */
+.ab-page{min-height:100vh;background:#050505;display:flex;flex-direction:column;align-items:center;overflow:hidden;position:relative;padding-bottom:0;width:100%}
+.ab-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 15%,rgba(0,230,118,.08),transparent 45%),radial-gradient(ellipse at 85% 70%,rgba(0,80,200,.05),transparent 40%);pointer-events:none}
+.ab-fog1{position:absolute;width:800px;height:400px;background:rgba(0,230,118,.04);top:5%;left:50%;transform:translateX(-50%);filter:blur(70px);animation:hg 6s ease-in-out infinite;pointer-events:none}
+.ab-fog2{position:absolute;width:500px;height:300px;background:rgba(0,60,180,.04);bottom:30%;right:10%;filter:blur(60px);animation:hg 9s ease-in-out infinite reverse;pointer-events:none}
+.ab-hero{text-align:center;padding:120px 24px 60px;position:relative;z-index:10;max-width:680px}
+.ab-h1{font-size:clamp(34px,4.5vw,58px);font-weight:800;color:var(--w);line-height:1.1;margin-bottom:16px;letter-spacing:-1.5px}
+.ab-sub{font-size:16px;color:var(--tm);font-weight:300;line-height:1.75}
+.ab-scene{width:100%;max-width:1100px;padding:0 40px 40px;transition:transform .12s ease-out;transform-style:preserve-3d;position:relative;z-index:5;perspective:1200px}
+.ab-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.ab-card{background:rgba(14,14,14,.95);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:28px 22px;transition:transform .35s ease,border-color .35s,box-shadow .35s;animation:tmFloat 6s ease-in-out infinite;position:relative;overflow:hidden;cursor:pointer}
+.ab-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--g),transparent);transform:scaleX(0);transition:transform .4s}
+.ab-card:hover{border-color:rgba(0,230,118,.3);box-shadow:0 28px 56px rgba(0,0,0,.6),0 0 30px rgba(0,230,118,.07);transform:translateY(-14px) scale(1.04) !important}.ab-card:hover::before{transform:scaleX(1)}
+.ab-card-icon{width:44px;height:44px;background:rgba(0,230,118,.08);border:1px solid rgba(0,230,118,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;transition:all .3s}.ab-card:hover .ab-card-icon{background:rgba(0,230,118,.15);border-color:rgba(0,230,118,.35);transform:scale(1.1)}
+.ab-card-t{font-size:15px;font-weight:700;color:var(--w);margin-bottom:8px;transition:color .3s}.ab-card:hover .ab-card-t{color:var(--g)}
+.ab-card-d{font-size:12px;color:var(--tm);font-weight:300;line-height:1.65}
+.ab-stats{display:flex;gap:0;margin:8px auto 48px;border:1px solid var(--bd);border-radius:12px;overflow:hidden;background:rgba(17,17,17,.8);backdrop-filter:blur(10px);position:relative;z-index:10}
+.ab-stat{padding:20px 36px;text-align:center;border-right:1px solid var(--bd)}.ab-stat:last-child{border-right:none}
+.ab-stat-n{font-size:26px;font-weight:800;color:var(--g);line-height:1}
+.ab-stat-l{font-size:10px;color:var(--td);text-transform:uppercase;letter-spacing:1.2px;margin-top:4px}
+.ab-process{text-align:center;padding:48px 40px 64px;position:relative;z-index:10;width:100%;max-width:900px}
+.ab-process-h{font-size:26px;font-weight:700;color:var(--w);margin-bottom:32px;letter-spacing:-.5px}
+.faq-sec{background:var(--sf);border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);padding:80px 60px;width:100%}
+.ab-steps{display:flex;justify-content:center;gap:0;border:1px solid var(--bd);border-radius:12px;overflow:hidden;background:rgba(14,14,14,.8)}
+.ab-step{flex:1;padding:24px 16px;text-align:center;border-right:1px solid var(--bd);position:relative;transition:all .3s;cursor:default}.ab-step:last-child{border-right:none}.ab-step:hover{background:rgba(0,230,118,.04)}
+.ab-step-i{width:40px;height:40px;background:rgba(0,230,118,.08);border:1px solid rgba(0,230,118,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;transition:all .3s}.ab-step:hover .ab-step-i{background:rgba(0,230,118,.15);transform:translateY(-3px)}
+.ab-step-t{font-size:13px;font-weight:700;color:var(--w);transition:color .3s}.ab-step:hover .ab-step-t{color:var(--g)}
+.tm-page{min-height:100vh;background:#050505;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;padding-top:100px}
+.tm-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(0,230,118,.07),transparent 50%),radial-gradient(ellipse at 80% 100%,rgba(0,100,255,.05),transparent 45%);pointer-events:none}
+.tm-fog{position:absolute;pointer-events:none;border-radius:50%;filter:blur(80px)}
+.tm-fog1{width:900px;height:400px;background:rgba(0,230,118,.04);top:20%;left:50%;transform:translateX(-50%);animation:hg 6s ease-in-out infinite}
+.tm-fog2{width:600px;height:300px;background:rgba(0,80,200,.04);bottom:10%;left:50%;transform:translateX(-50%);animation:hg 8s ease-in-out infinite reverse}
+.tm-header{text-align:center;padding:0 24px 60px;position:relative;z-index:10;max-width:700px}
+.tm-h1{font-size:clamp(32px,4vw,52px);font-weight:800;color:var(--w);line-height:1.15;margin-bottom:14px;letter-spacing:-1px}
+.tm-sub{font-size:15px;color:var(--tm);font-weight:300;line-height:1.7;margin-bottom:20px}
+.tm-stars{display:flex;align-items:center;gap:4px;color:var(--g);justify-content:center}
+.tm-rating{font-size:12px;color:var(--td);margin-left:8px;font-weight:500}
+.tm-scene{width:100%;max-width:1300px;padding:0 24px 40px;transition:transform .1s ease-out;transform-style:preserve-3d;position:relative;z-index:5}
+.tm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.tm-col{display:flex;flex-direction:column;gap:20px;transform-style:preserve-3d}
+.tm-card{background:rgba(14,14,14,.95);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:24px;position:relative;overflow:hidden;transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease;animation:tmFloat 6s ease-in-out infinite;cursor:pointer}
+.tm-card:hover{border-color:rgba(0,230,118,.3);box-shadow:0 28px 60px rgba(0,0,0,.7),0 0 40px rgba(0,230,118,.07);transform:translateY(-16px) scale(1.03) !important}
+@keyframes tmFloat{0%,100%{margin-top:0px}50%{margin-top:-8px}}
+
+.tm-card-top{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.tm-av{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tm-name{font-size:13px;font-weight:700;color:var(--w);line-height:1.2}
+.tm-role{font-size:10px;color:var(--td);text-transform:uppercase;letter-spacing:1px}
+.tm-card-stars{margin-left:auto;display:flex;gap:2px;color:var(--g)}
+.tm-quote{font-size:13px;line-height:1.7;color:var(--tm);font-style:italic;font-weight:300;flex:1}
+.tm-card-bottom{margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.05)}
+.tm-verified{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--td);text-transform:uppercase;letter-spacing:1px}
+.tm-stats-bar{display:flex;gap:0;margin:20px auto 32px;border:1px solid var(--bd);border-radius:12px;overflow:hidden;background:rgba(17,17,17,.8);backdrop-filter:blur(10px);position:relative;z-index:10}
+.tm-stat{padding:20px 40px;text-align:center;border-right:1px solid var(--bd)}.tm-stat:last-child{border-right:none}
+.tm-stat-n{font-size:26px;font-weight:800;color:var(--g);line-height:1}
+.tm-stat-l{font-size:10px;color:var(--td);text-transform:uppercase;letter-spacing:1.5px;margin-top:4px}
 .faq-wrap{max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
 .faq-item{background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:20px 24px;cursor:pointer;transition:all .3s}
 .faq-item:hover,.faq-item.open{border-color:rgba(0,230,118,.3)}
@@ -453,8 +896,106 @@ return<><style>{`@import url('https://fonts.googleapis.com/css2?family=Poppins:w
 .faq-icon{width:28px;height:28px;background:var(--gd);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--g);font-size:18px;font-weight:300;flex-shrink:0;transition:all .3s;line-height:1}
 .faq-item.open .faq-icon{background:var(--g);color:var(--bg)}
 .faq-a{margin-top:14px;font-size:14px;line-height:1.75;color:var(--tm);font-weight:300;padding-top:14px;border-top:1px solid var(--bd)}
-@media(max-width:1024px){.nv{padding:16px 24px}.nk{display:none}.hero{padding:120px 24px 80px}.hi{grid-template-columns:1fr;gap:40px}.sec,.sec-w{padding:60px 24px}.stw{padding:0 24px}.sts{flex-wrap:wrap}.st{min-width:50%;padding:18px 14px}.sg>div{flex:0 0 100%}.pg,.ptg{grid-template-columns:1fr}.abg,.sdg,.ctg{grid-template-columns:1fr;gap:28px}.svr{flex-direction:column!important;gap:28px}.prg,.teg{grid-template-columns:1fr 1fr}.fg{grid-template-columns:1fr 1fr;gap:16px}.cta{padding:60px 24px}.ft{padding:40px 24px 16px}.pb{padding:120px 24px 60px}.fr{grid-template-columns:1fr}.faq-sec{padding:60px 24px}.tf-wrap{grid-template-columns:1fr}.tf-sec{padding:60px 24px}}
-@media(max-width:600px){.h1h{font-size:28px!important}.btns{flex-direction:column;align-items:stretch}.fg{grid-template-columns:1fr}.prg,.teg{grid-template-columns:1fr}.st{min-width:50%}}
+@media(max-width:1024px){
+.nv-inner{padding:14px 24px}
+.nk{display:none}
+.nv-burger{display:flex}
+.nv-mob{display:flex}
+.hero{padding:100px 24px 60px}
+.hi{grid-template-columns:1fr;gap:32px}
+.hm{display:none}
+.sec,.sec-w{padding:50px 24px}
+.stw{padding:0 16px}
+.sts{flex-wrap:wrap}
+.st{min-width:50%;padding:16px 12px}
+.sg>div{flex:0 0 100%}
+.pg,.ptg{grid-template-columns:1fr}
+.abg,.sdg,.ctg{grid-template-columns:1fr;gap:24px}
+.svr{flex-direction:column!important;gap:24px}
+.prg,.teg{grid-template-columns:1fr 1fr}
+.fg{grid-template-columns:1fr 1fr;gap:16px}
+.cta{padding:50px 24px}
+.ft{padding:40px 24px 16px}
+.pb{padding:110px 24px 50px}
+.fr{grid-template-columns:1fr}
+.faq-sec{padding:50px 24px}
+.tf-wrap{grid-template-columns:1fr}
+.tf-sec{padding:50px 24px}
+.ct-content{grid-template-columns:1fr;gap:32px}
+.ct-page{padding:90px 24px 50px}
+.ct-stat-row{grid-template-columns:repeat(3,1fr)}
+.tm-grid{grid-template-columns:1fr 1fr}
+.tm-stats-bar{flex-wrap:wrap}
+.tm-stat{min-width:calc(50% - 1px);padding:16px 20px}
+.pf-grid{grid-template-columns:1fr}
+.ab-grid{grid-template-columns:1fr 1fr}
+.ab-steps{flex-wrap:wrap}
+.ab-step{min-width:calc(50% - 1px)}
+.ab-stats{flex-wrap:wrap}
+.ab-stat{min-width:calc(50% - 1px)}
+.pf-scene{padding:0 16px 40px}
+.ab-scene{padding:0 16px 32px}
+.tm-scene{padding:0 16px 32px}
+.h1h{font-size:clamp(28px,7vw,44px)!important}
+.tf-client-name{font-size:22px}
+}
+@media(max-width:600px){
+.nv-inner{padding:12px 16px}
+.h1h{font-size:28px!important}
+.ct-h1{font-size:30px!important}
+.ab-h1{font-size:30px!important}
+.pf-h1{font-size:28px!important}
+.tm-h1{font-size:28px!important}
+.btns{flex-direction:column;align-items:stretch}
+.ct-hero-btns{flex-direction:column;align-items:stretch}
+.fg{grid-template-columns:1fr}
+.prg,.teg{grid-template-columns:1fr}
+.st{min-width:50%}
+.ct-mini-l{font-size:9px}
+.tm-grid{grid-template-columns:1fr}
+.tm-scene{transform:none!important}
+.ab-grid{grid-template-columns:1fr 1fr}
+.ab-scene{transform:none!important}
+.pf-scene{transform:none!important}
+.pf-img-wrap{height:220px}
+.pf-grid{grid-template-columns:1fr}
+.ab-stats{flex-direction:row;flex-wrap:wrap}
+.ab-stat{min-width:calc(50% - 1px)}
+.ct-content{gap:24px}
+.ct-page{padding:80px 16px 40px}
+.ct-action-card{padding:24px 20px}
+.ct-stat-row{grid-template-columns:repeat(3,1fr);gap:8px}
+.ct-mini-stat{padding:14px 8px}
+.ct-mini-n{font-size:18px}
+.faq-sec{padding:40px 16px}
+.faq-wrap{padding:0}
+.sec,.sec-w{padding:40px 16px}
+.cta{padding:40px 16px}
+.pb{padding:100px 16px 40px}
+.pb-t{font-size:clamp(26px,7vw,40px)}
+.title{font-size:clamp(22px,6vw,32px)}
+.sts{margin:0 -16px}
+.stw{padding:0}
+.ab-steps{flex-wrap:nowrap}
+.ab-step{flex:1;padding:16px 8px}
+.ab-step-i{width:36px;height:36px}
+.ab-step-t{font-size:11px}
+.tm-stats-bar{flex-wrap:wrap}
+.tm-stat{min-width:calc(50% - 1px);padding:14px 10px}
+.tm-stat-n{font-size:20px}
+.tf-wrap{gap:28px}
+.tf-client-name{font-size:20px}
+.svr-img img{height:240px!important}
+.ft{padding:32px 16px 16px}
+.fg{grid-template-columns:1fr}
+.pf-cta{padding:10px 16px 60px}
+.pf-cta-box{padding:28px 20px}
+.ab-hero{padding:90px 16px 40px}
+.ab-process{padding:32px 16px 48px}
+.ab-process-h{font-size:22px}
+.ct-ac-val{font-size:17px}
+.mock{display:none}
+}
 `}</style>
 <Nav go={go} sc={sc}/>
 {pg==="home"&&<Home go={go}/>}
