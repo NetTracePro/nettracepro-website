@@ -159,6 +159,7 @@ const Nav=({go,sc})=>{
         <a href="#" onClick={e=>{e.preventDefault();nav("about")}}>About</a>
         <a href="#" onClick={e=>{e.preventDefault();nav("portfolio")}}>Portfolio</a>
         <a href="#" onClick={e=>{e.preventDefault();nav("testimonials")}}>Testimonials</a>
+        <a href="#" onClick={e=>{e.preventDefault();nav("pricing")}}>Pricing</a>
         <a href="#" onClick={e=>{e.preventDefault();nav("contact")}} className="nc">Get Started</a>
       </div>
       <button className="nv-burger" onClick={()=>sm(!mo)} aria-label="Menu">
@@ -172,13 +173,14 @@ const Nav=({go,sc})=>{
       <a href="#" onClick={e=>{e.preventDefault();nav("about")}}>About</a>
       <a href="#" onClick={e=>{e.preventDefault();nav("portfolio")}}>Portfolio</a>
       <a href="#" onClick={e=>{e.preventDefault();nav("testimonials")}}>Testimonials</a>
+      <a href="#" onClick={e=>{e.preventDefault();nav("pricing")}}>Pricing</a>
       <a href="#" onClick={e=>{e.preventDefault();nav("contact")}} className="nmc">Get Started</a>
     </div>}
   </nav>;
 };
 
 const Ft=({go})=><footer className="ft" aria-label="NetTracePro Footer"><div className="fw"><div className="fg"><div className="fb"><a href="#" onClick={e=>{e.preventDefault();go("home")}} className="nl" aria-label="NetTracePro Home"><img src={LF} alt="NetTracePro" style={{height:50}}/></a><p>NetTracePro — Houston's full-service digital agency for web design, web development, mobile apps, and SEO. Empowering businesses with strategies that convert.</p></div>
-<div className="fc"><h4>Company</h4><a href="#" onClick={e=>{e.preventDefault();go("about")}}>About NetTracePro</a><a href="#" onClick={e=>{e.preventDefault();go("testimonials")}}>Client Testimonials</a><a href="#" onClick={e=>{e.preventDefault();go("portfolio")}}>Our Portfolio</a></div>
+<div className="fc"><h4>Company</h4><a href="#" onClick={e=>{e.preventDefault();go("about")}}>About NetTracePro</a><a href="#" onClick={e=>{e.preventDefault();go("testimonials")}}>Client Testimonials</a><a href="#" onClick={e=>{e.preventDefault();go("portfolio")}}>Our Portfolio</a><a href="#" onClick={e=>{e.preventDefault();go("pricing")}}>Pricing</a></div>
 <div className="fc"><h4>Services</h4>{SV.map(s=><a key={s.id} href="#" onClick={e=>{e.preventDefault();go("sv-"+s.id)}}>{s.t.split("&")[0].trim()}</a>)}</div>
 <div className="fc"><h4>Connect</h4><a href="#" onClick={e=>{e.preventDefault();go("contact")}}>Contact NetTracePro</a><a href="tel:+17132699658">(713) 269-9658</a><a href="mailto:info@nettracepro.com">info@nettracepro.com</a><span style={{fontSize:11,color:"var(--td)"}}>Houston, TX</span></div></div>
 <div className="fbt"><p>© 2025 NetTracePro. All rights reserved. | Web Design Houston | SEO Houston | Mobile Apps Houston</p></div></div></footer>;
@@ -328,17 +330,97 @@ return<><section className="hero" aria-label="NetTracePro — Houston Web Design
 
 <div className="cta"><F><h2 className="cta-h">Ready to Build Something <span className="acc">Great</span> with NetTracePro?</h2><p className="cta-p">Houston's most results-driven web design & SEO agency is ready to grow your business. Let's talk.</p><a href="#" onClick={e=>{e.preventDefault();go("contact")}} className="btn bg" style={{position:"relative"}}>Start Your Project <A/></a></F></div></>;};
 
-/* === SERVICES OVERVIEW === */
+/* === SERVICES === */
 const Services=({go})=>{
   useSEO({
     title:"NetTracePro Services | Web Design, Mobile Apps & SEO — Houston, TX",
     description:"Explore NetTracePro's full range of digital services: custom web design, mobile app development, and SEO in Houston, TX. Built to rank, designed to convert.",
     keywords:"NetTracePro services, web design Houston, mobile app development Houston, SEO agency Houston, digital marketing services, NetTracePro"
   });
-  return<><PB l="NetTracePro Services" t="What We Offer" s="Full-service digital solutions from Houston's trusted agency — NetTracePro."/>
-<section className="sec">{SV.map((s,i)=><F key={s.id} d={i*.1}><div className="svr" style={{flexDirection:i%2===1?"row-reverse":"row"}}><div className="svr-img"><img src={s.img} alt={`NetTracePro — ${s.t}`} style={{width:'100%',height:420,objectFit:'contain',borderRadius:10,background:'#0d0d0d',padding:'10px'}}/></div><div className="svr-txt"><div className="si" style={{marginBottom:16}}>{IC[s.ic]}</div><h2 className="title" style={{fontSize:26}}>{s.t}</h2><p style={{color:"var(--tm)",lineHeight:1.7,fontWeight:300,marginBottom:20}}>{s.fl}</p><div style={{display:"flex",flexWrap:"wrap",gap:8,marginBottom:24}}>{s.ft.slice(0,4).map((f,j)=><span key={j} className="ftag">{IC.k} {f}</span>)}</div><a href="#" onClick={e=>{e.preventDefault();go("sv-"+s.id)}} className="btn bg">Learn More <A/></a></div></div>{i<SV.length-1&&<div style={{height:1,background:"var(--bd)",margin:"50px 0"}}/>}</F>)}</section>
-<TransformSection go={go}/>
-<div className="cta"><F><h2 className="cta-h">Ready to Get Started with NetTracePro?</h2><p className="cta-p">Let's discuss which services are right for your Houston business.</p><a href="#" onClick={e=>{e.preventDefault();go("contact")}} className="btn bg" style={{position:"relative"}}>Contact NetTracePro <A/></a></F></div></>;
+  const[active,setActive]=useState(0);
+  const SVDATA=[
+    {
+      id:"w", num:"01",
+      title:"Web Design &\nDevelopment",
+      pitch:"Your website is your hardest-working employee — it should be open 24/7, look sharp on every device, and turn visitors into paying customers.",
+      bullets:["Custom design tailored to your brand","SEO-optimized from day one","Mobile-first & lightning fast","Built to convert visitors into leads"],
+      img:SV[0].img,
+      go:"sv-w",
+      color:"#00E676",
+      icon:<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00E676" strokeWidth="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+    },
+    {
+      id:"m", num:"02",
+      title:"Mobile App\nDevelopment",
+      pitch:"Your customers live on their phones. We build native iOS & Android apps — and cross-platform solutions — that feel premium and perform flawlessly.",
+      bullets:["iOS & Android, native or cross-platform","UI/UX designed for real users","App Store & Google Play launch support","Ongoing updates & maintenance"],
+      img:SV[1].img,
+      go:"sv-m",
+      color:"#82AAFF",
+      icon:<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#82AAFF" strokeWidth="1.5"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+    },
+    {
+      id:"s", num:"03",
+      title:"Search Engine\nOptimization",
+      pitch:"Ranking on page one isn't luck — it's strategy. We audit, optimize, and build your authority so Google sends customers to you instead of the competition.",
+      bullets:["Technical SEO & site audits","Local SEO for Houston businesses","Keyword research & content strategy","Monthly rankings report"],
+      img:SV[2].img,
+      go:"sv-s",
+      color:"#C3E88D",
+      icon:<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#C3E88D" strokeWidth="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+    },
+  ];
+  const cur=SVDATA[active];
+  return<div className="sv-page">
+    <div className="sv-bg"/><div className="sv-fog1"/><div className="sv-fog2"/>
+    {/* HERO */}
+    <div className="sv-header">
+      <F><span className="label">NetTracePro Services</span></F>
+      <F d={.08}><h1 className="sv-h1">Built to <span className="acc">Perform.</span><br/>Designed to <span className="acc">Convert.</span></h1></F>
+      <F d={.15}><p className="sv-sub">Every service we offer is built around one goal — growing your business online.</p></F>
+    </div>
+    {/* TABBED SHOWCASE */}
+    <div className="sv-showcase">
+      {/* TABS */}
+      <div className="sv-tabs">
+        {SVDATA.map((s,i)=><button key={i} className={`sv-tab ${active===i?"sv-tab-act":""}`}
+          style={active===i?{borderColor:s.color,color:s.color}:{}}
+          onClick={()=>setActive(i)}>
+          <span className="sv-tab-icon">{s.icon}</span>
+          <span className="sv-tab-label">{s.title.replace("\n"," ")}</span>
+          {active===i&&<span className="sv-tab-bar" style={{background:s.color}}/>}
+        </button>)}
+      </div>
+      {/* PANEL */}
+      <div className="sv-panel" key={active}>
+        <div className="sv-panel-left">
+          <div className="sv-panel-num" style={{color:cur.color+"22"}}>{cur.num}</div>
+          <h2 className="sv-panel-title" style={{color:"var(--w)"}}>
+            {cur.title.split("\n").map((line,i)=><span key={i}>{i===0?<span style={{color:cur.color}}>{line}</span>:line}<br/></span>)}
+          </h2>
+          <p className="sv-panel-pitch">{cur.pitch}</p>
+          <div className="sv-panel-bullets">
+            {cur.bullets.map((b,i)=><div key={i} className="sv-panel-bullet">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={cur.color} strokeWidth="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+              <span>{b}</span>
+            </div>)}
+          </div>
+          <div className="sv-panel-actions">
+            <a href="#" onClick={e=>{e.preventDefault();go(cur.go)}} className="btn bg" style={{background:cur.color,color:"#0a0a0a"}}>See How It Works <A/></a>
+            <a href="#" onClick={e=>{e.preventDefault();go("contact")}} className="btn bo">Get a Free Quote <A/></a>
+          </div>
+        </div>
+        <div className="sv-panel-right">
+          <div className="sv-panel-img-wrap" style={{borderColor:cur.color+"33"}}>
+            <img src={cur.img} alt={cur.title} className="sv-panel-img"/>
+            <div className="sv-panel-img-glow" style={{background:`radial-gradient(ellipse at 50% 100%,${cur.color}22,transparent 60%)`}}/>
+          </div>
+        </div>
+      </div>
+    </div>
+    <TransformSection go={go}/>
+    <div className="cta"><F><h2 className="cta-h">Ready to Get Started?</h2><p className="cta-p">Let's talk about what your business needs and build something that actually works.</p><a href="#" onClick={e=>{e.preventDefault();go("pricing")}} className="btn bg" style={{position:"relative",marginRight:12}}>View Pricing <A/></a><a href="#" onClick={e=>{e.preventDefault();go("contact")}} className="btn bo">Get a Free Quote <A/></a></F></div>
+  </div>;
 };
 
 /* === SERVICE DETAIL === */
@@ -740,6 +822,104 @@ const Contact=({go})=>{
   </div>;
 };
 
+/* === PRICING === */
+const Pricing=({go})=>{
+  useSEO({
+    title:"NetTracePro Pricing | Affordable Web Design Plans — Houston, TX",
+    description:"Simple, transparent pricing from NetTracePro. No hidden fees. Get a professional website starting at $500 down. Houston web design that fits your budget.",
+    keywords:"NetTracePro pricing, affordable web design Houston, website cost Houston, NetTracePro plans"
+  });
+  const[hov,sh]=useState(null);
+  const INCL=[
+    {ic:<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00E676" strokeWidth="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>, t:"Custom Website"},
+    {ic:<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00E676" strokeWidth="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>, t:"SEO Setup"},
+    {ic:<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00E676" strokeWidth="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>, t:"Hosting & Uptime"},
+    {ic:<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00E676" strokeWidth="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>, t:"Priority Support"},
+    {ic:<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00E676" strokeWidth="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-.08-4.43"/></svg>, t:"Monthly Updates"},
+    {ic:<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00E676" strokeWidth="2"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>, t:"Mobile Friendly"},
+  ];
+  return<div className="pr-page">
+    <div className="pr-bg"/><div className="pr-fog1"/><div className="pr-fog2"/>
+    <div className="pr-header">
+      <F><span className="label">NetTracePro Pricing</span></F>
+      <F d={.08}><h1 className="pr-h1">One Price. <span className="acc">Everything Included.</span></h1></F>
+      <F d={.14}><p className="pr-sub">No agency markup. No surprise invoices. Just a professional website that grows with you.</p></F>
+    </div>
+    {/* WHAT'S INCLUDED STRIP */}
+    <F d={.1}><div className="pr-incl">
+      {INCL.map((x,i)=><div key={i} className="pr-incl-item">
+        <div className="pr-incl-icon">{x.ic}</div>
+        <span>{x.t}</span>
+      </div>)}
+    </div></F>
+    {/* PLAN CARDS */}
+    <div className="pr-cards">
+      {/* FLEX PLAN */}
+      <F d={.1}><div className={`pr-card pr-card-green ${hov===0?"pr-card-hov":""}`}
+        onMouseEnter={()=>sh(0)} onMouseLeave={()=>sh(null)}>
+        <div className="pr-card-glow" style={{background:"radial-gradient(circle at top right,rgba(0,230,118,.14),transparent 65%)"}}/>
+        <div className="pr-hot-badge">⭐ Most Popular</div>
+        <div className="pr-plan-name">Flex Plan</div>
+        <div className="pr-price-row">
+          <span className="pr-price" style={{color:"#00E676"}}>$500</span>
+          <span className="pr-price-sub">to start</span>
+        </div>
+        <div className="pr-plus-row">
+          <span className="pr-plus">+</span>
+          <span className="pr-mo-price" style={{color:"#00E676"}}>$150</span>
+          <span className="pr-mo-label">/mo for 12 months</span>
+        </div>
+        <div className="pr-card-note">Hosting & maintenance included. No contract.</div>
+        <div className="pr-divider"/>
+        <div className="pr-renewal-box">
+          <div className="pr-renewal-title">After Year 1 — Stay for less:</div>
+          <div className="pr-renewal-opt" style={{background:"rgba(0,230,118,.08)",borderColor:"rgba(0,230,118,.25)"}}>
+            <span style={{color:"#00E676",fontWeight:700}}>$100/mo</span>
+            <span style={{color:"var(--tm)",fontSize:12}}>— keep everything running</span>
+          </div>
+        </div>
+        <a href="#" onClick={e=>{e.preventDefault();go("contact")}} className="pr-cta-btn pr-cta-green">
+          Get Started — Flex Plan <A/>
+        </a>
+      </div></F>
+      {/* FULL PAY PLAN */}
+      <F d={.18}><div className={`pr-card pr-card-blue ${hov===1?"pr-card-hov":""}`}
+        onMouseEnter={()=>sh(1)} onMouseLeave={()=>sh(null)}>
+        <div className="pr-card-glow" style={{background:"radial-gradient(circle at top right,rgba(130,170,255,.12),transparent 65%)"}}/>
+        <div className="pr-hot-badge" style={{background:"rgba(130,170,255,.12)",color:"#82AAFF",border:"1px solid rgba(130,170,255,.3)"}}>💰 Best Value</div>
+        <div className="pr-plan-name" style={{color:"#82AAFF"}}>Full Pay Plan</div>
+        <div className="pr-price-row">
+          <span className="pr-price" style={{color:"#82AAFF"}}>$1,200</span>
+          <span className="pr-price-sub">one time</span>
+        </div>
+        <div className="pr-savings-tag">Saves you $1,100 vs Flex Plan</div>
+        <div className="pr-card-note">Full year of hosting & maintenance. Pay once, done.</div>
+        <div className="pr-divider"/>
+        <div className="pr-renewal-box">
+          <div className="pr-renewal-title">After Year 1 — Stay for less:</div>
+          <div className="pr-renewal-opt" style={{background:"rgba(130,170,255,.08)",borderColor:"rgba(130,170,255,.25)"}}>
+            <span style={{color:"#82AAFF",fontWeight:700}}>$100/mo</span>
+            <span style={{color:"var(--tm)",fontSize:12}}>— keep everything running</span>
+          </div>
+        </div>
+        <a href="#" onClick={e=>{e.preventDefault();go("contact")}} className="pr-cta-btn" style={{background:"#82AAFF"}}>
+          Get Started — Full Pay <A/>
+        </a>
+      </div></F>
+    </div>
+    {/* HANDOFF NOTE */}
+    <F><div className="pr-handoff">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00E676" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <p><strong style={{color:"var(--w)"}}>Handoff Package — $200</strong> &nbsp;·&nbsp; If you ever leave, we hand over all your files, code, and assets. Mandatory, one-time, no surprises.</p>
+    </div></F>
+    <div className="cta" style={{position:"relative",zIndex:2}}><F>
+      <h2 className="cta-h">Not sure which plan is right for you?</h2>
+      <p className="cta-p">We'll help you pick. Reach out — no pressure, no pitch.</p>
+      <a href="#" onClick={e=>{e.preventDefault();go("contact")}} className="btn bg" style={{position:"relative"}}>Talk to Us First <A/></a>
+    </F></div>
+  </div>;
+};
+
 /* === APP === */
 export default function App(){
   useSEO(SEO_DEFAULTS);
@@ -747,7 +927,7 @@ export default function App(){
   useEffect(()=>{const fn=()=>ss(window.scrollY>40);window.addEventListener("scroll",fn);return()=>window.removeEventListener("scroll",fn)},[]);
   const go=p=>{sp(p);window.scrollTo({top:0,behavior:"smooth"})};
 return<><style>{`@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
-:root{--bg:#0A0A0A;--sf:#111;--bd:#222;--bl:#2a2a2a;--g:#00E676;--gd:rgba(0,230,118,.08);--gk:#00C853;--w:#FFF;--t:#E0E0E0;--tm:#888;--td:#555}
+:root{--bg:#0A0A0A;--sf:#111;--bd:#222;--bl:#2a2a2a;--g:#00E676;--gd:rgba(0,230,118,.08);--gk:#00C853;--w:#FFF;--t:#F0F0F0;--tm:#B0B0B0;--td:#707070}
 *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--t);overflow-x:hidden;-webkit-font-smoothing:antialiased}
 .nv{position:fixed;top:0;left:0;right:0;z-index:1000;transition:all .4s}.nv.sc{background:rgba(10,10,10,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--bd)}
 .nv-inner{display:flex;align-items:center;justify-content:space-between;padding:18px 60px;max-width:1400px;margin:0 auto;width:100%}
@@ -1005,7 +1185,76 @@ return<><style>{`@import url('https://fonts.googleapis.com/css2?family=Poppins:w
 .faq-icon{width:28px;height:28px;background:var(--gd);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--g);font-size:18px;font-weight:300;flex-shrink:0;transition:all .3s;line-height:1}
 .faq-item.open .faq-icon{background:var(--g);color:var(--bg)}
 .faq-a{margin-top:14px;font-size:14px;line-height:1.75;color:var(--tm);font-weight:300;padding-top:14px;border-top:1px solid var(--bd)}
+/* ── SERVICES SHOWCASE PAGE ── */
+.sv-page{min-height:100vh;background:#050a06;display:flex;flex-direction:column;align-items:center;overflow:hidden;position:relative}
+.sv-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 10%,rgba(0,230,118,.08),transparent 50%),radial-gradient(ellipse at 90% 60%,rgba(130,170,255,.04),transparent 40%);pointer-events:none}
+.sv-fog1{position:absolute;width:1100px;height:600px;background:rgba(0,230,118,.04);top:0;left:50%;transform:translateX(-50%);filter:blur(90px);animation:hg 7s ease-in-out infinite;pointer-events:none}
+.sv-fog2{position:absolute;width:600px;height:400px;background:rgba(0,60,180,.04);bottom:20%;right:0;filter:blur(70px);animation:hg 10s ease-in-out infinite reverse;pointer-events:none}
+.sv-header{text-align:center;padding:120px 24px 50px;position:relative;z-index:2;max-width:640px}
+.sv-h1{font-size:clamp(36px,4.5vw,60px);font-weight:800;color:var(--w);line-height:1.08;margin-bottom:16px;letter-spacing:-1.5px}
+.sv-sub{font-size:16px;color:var(--tm);font-weight:300;line-height:1.75}
+.sv-showcase{width:100%;max-width:1200px;padding:0 40px 60px;position:relative;z-index:2}
+.sv-tabs{display:flex;gap:0;border:1px solid var(--bd);border-radius:14px;overflow:hidden;background:rgba(10,10,10,.8);backdrop-filter:blur(12px);margin-bottom:40px}
+.sv-tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;padding:24px 20px;background:none;border:none;border-right:1px solid var(--bd);cursor:pointer;transition:all .3s;color:var(--td);position:relative;font-family:"Poppins",sans-serif}.sv-tab:last-child{border-right:none}.sv-tab:hover{background:rgba(255,255,255,.03);color:var(--t)}
+.sv-tab-act{background:rgba(255,255,255,.04)!important;color:var(--w)!important}
+.sv-tab-icon{opacity:.7;transition:opacity .3s}.sv-tab-act .sv-tab-icon,.sv-tab:hover .sv-tab-icon{opacity:1}
+.sv-tab-label{font-size:13px;font-weight:600;letter-spacing:.3px}
+.sv-tab-bar{position:absolute;bottom:0;left:0;right:0;height:3px;border-radius:3px 3px 0 0}
+.sv-panel{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;animation:svIn .4s ease}
+@keyframes svIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.sv-panel-left{display:flex;flex-direction:column;gap:20px;position:relative}
+.sv-panel-num{font-size:120px;font-weight:800;line-height:1;position:absolute;top:-20px;right:0;pointer-events:none;letter-spacing:-4px}
+.sv-panel-title{font-size:clamp(30px,3.5vw,46px);font-weight:800;color:var(--w);line-height:1.1;letter-spacing:-1px;position:relative;z-index:1}
+.sv-panel-pitch{font-size:15px;line-height:1.75;color:var(--t);font-weight:300}
+.sv-panel-bullets{display:flex;flex-direction:column;gap:10px}
+.sv-panel-bullet{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--t);font-weight:400}
+.sv-panel-actions{display:flex;gap:12px;flex-wrap:wrap;padding-top:4px}
+.sv-panel-right{position:relative}
+.sv-panel-img-wrap{border-radius:16px;overflow:hidden;border:1px solid;height:360px;position:relative;transition:box-shadow .4s}.sv-panel-img-wrap:hover{box-shadow:0 30px 60px rgba(0,0,0,.5)}
+.sv-panel-img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;transition:transform .6s ease}.sv-panel-img-wrap:hover .sv-panel-img{transform:scale(1.04)}
+.sv-panel-img-glow{position:absolute;inset:0;pointer-events:none}
+/* ── PRICING PAGE ── */
+.pr-page{min-height:100vh;background:#040a06;display:flex;flex-direction:column;align-items:center;overflow:hidden;position:relative;padding-bottom:0;width:100%}
+.pr-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 15%,rgba(0,230,118,.09),transparent 50%),radial-gradient(ellipse at 85% 70%,rgba(130,170,255,.05),transparent 40%);pointer-events:none}
+.pr-fog1{position:absolute;width:1000px;height:500px;background:rgba(0,230,118,.04);top:0;left:50%;transform:translateX(-50%);filter:blur(80px);animation:hg 6s ease-in-out infinite;pointer-events:none}
+.pr-fog2{position:absolute;width:600px;height:400px;background:rgba(100,130,255,.04);bottom:15%;right:5%;filter:blur(70px);animation:hg 9s ease-in-out infinite reverse;pointer-events:none}
+.pr-header{text-align:center;padding:120px 24px 40px;position:relative;z-index:2;max-width:620px}
+.pr-h1{font-size:clamp(34px,4.5vw,58px);font-weight:800;color:var(--w);line-height:1.1;margin-bottom:14px;letter-spacing:-1.5px}
+.pr-sub{font-size:16px;color:var(--t);font-weight:300;line-height:1.75}
+.pr-incl{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;max-width:760px;width:100%;padding:0 24px 48px;position:relative;z-index:2}
+.pr-incl-item{display:flex;align-items:center;gap:8px;background:rgba(0,230,118,.06);border:1px solid rgba(0,230,118,.15);border-radius:100px;padding:8px 16px;font-size:12px;font-weight:600;color:var(--t)}
+.pr-incl-icon{display:flex;align-items:center;flex-shrink:0}
+.pr-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:860px;width:100%;padding:0 24px 32px;position:relative;z-index:2}
+.pr-card{background:rgba(10,14,10,.97);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:36px 32px;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:18px;transition:all .35s}
+.pr-card-green{border-color:rgba(0,230,118,.15)}
+.pr-card-blue{border-color:rgba(130,170,255,.12)}
+.pr-card-glow{position:absolute;inset:0;pointer-events:none}
+.pr-card-hov{transform:translateY(-10px)}.pr-card-green.pr-card-hov{border-color:rgba(0,230,118,.4);box-shadow:0 40px 80px rgba(0,0,0,.5),0 0 50px rgba(0,230,118,.08)}.pr-card-blue.pr-card-hov{border-color:rgba(130,170,255,.35);box-shadow:0 40px 80px rgba(0,0,0,.5),0 0 50px rgba(130,170,255,.07)}
+.pr-hot-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(0,230,118,.1);border:1px solid rgba(0,230,118,.25);color:#00E676;font-size:11px;font-weight:700;padding:5px 14px;border-radius:100px;letter-spacing:.5px;width:fit-content}
+.pr-plan-name{font-size:28px;font-weight:800;color:#00E676;letter-spacing:-.5px}
+.pr-price-row{display:flex;align-items:baseline;gap:10px}
+.pr-price{font-size:60px;font-weight:800;line-height:1;letter-spacing:-2px}
+.pr-price-sub{font-size:16px;color:var(--td);font-weight:400}
+.pr-plus-row{display:flex;align-items:baseline;gap:8px}
+.pr-plus{font-size:24px;font-weight:700;color:var(--td)}
+.pr-mo-price{font-size:32px;font-weight:800;letter-spacing:-1px}
+.pr-mo-label{font-size:13px;color:var(--td);font-weight:300}
+.pr-savings-tag{display:inline-block;background:rgba(130,170,255,.1);border:1px solid rgba(130,170,255,.2);color:#82AAFF;font-size:12px;font-weight:700;padding:5px 14px;border-radius:100px;width:fit-content}
+.pr-card-note{font-size:13px;color:var(--tm);font-weight:300;line-height:1.6}
+.pr-divider{height:1px;background:rgba(255,255,255,.07)}
+.pr-renewal-box{display:flex;flex-direction:column;gap:10px}
+.pr-renewal-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--td)}
+.pr-renewal-opt{display:flex;align-items:center;gap:8px;padding:12px 16px;border-radius:10px;border:1px solid;font-size:14px}
+.pr-cta-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:15px 28px;border-radius:10px;color:#0a0a0a;font-size:14px;font-weight:700;text-decoration:none;transition:all .3s;position:relative;overflow:hidden;margin-top:4px}.pr-cta-btn::after{content:"";position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);animation:sh 2.5s ease-in-out infinite}.pr-cta-btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,0,0,.4)}
+.pr-cta-green{background:#00E676}
+.pr-handoff{display:flex;align-items:flex-start;gap:14px;background:rgba(17,17,17,.9);border:1px solid rgba(0,230,118,.18);border-radius:12px;padding:20px 24px;max-width:860px;width:calc(100% - 48px);margin:0 24px 60px;position:relative;z-index:2}
+.pr-handoff p{font-size:13px;color:var(--tm);line-height:1.7;font-weight:300}
+.pr-handoff svg{flex-shrink:0;margin-top:2px}
 @media(max-width:1024px){
+.sv-showcase{padding:0 16px 40px}
+.sv-panel{grid-template-columns:1fr}
+.sv-panel-right{display:none}
+.sv-header,.pr-header{padding:100px 24px 40px}
 .nv-inner{padding:14px 24px}
 .nk{display:none}
 .nv-burger{display:flex}
@@ -1114,6 +1363,7 @@ return<><style>{`@import url('https://fonts.googleapis.com/css2?family=Poppins:w
 {pg==="portfolio"&&<Portfolio go={go}/>}
 {pg==="testimonials"&&<Testimonials go={go}/>}
 {pg==="contact"&&<Contact go={go}/>}
+{pg==="pricing"&&<Pricing go={go}/>}
 <Ft go={go}/>
 </>;
 }
