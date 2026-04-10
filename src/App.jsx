@@ -4,7 +4,7 @@ import slayersImg from './assets/Slayersclub.jpg'
 import simpletouchImg from './assets/SimpleTouch.jpg'
 import navLogo from './assets/NettraceproLogo.png'
 import footerLogo from './assets/NewLogo.png'
-import teamPhoto from './assets/NewLogo.png'
+import teamPhoto from './assets/NettraceproLogo.png'
 import webDevImg from './assets/DevWeb.png'
 import mobileAppImg from './assets/Webdesign.jpg'
 import seoImg from './assets/SEO.jpg'
@@ -115,10 +115,10 @@ const SV=[
 {id:"s",ic:"s",t:"Search Engine Optimization",sh:"Data-driven SEO strategies that boost your Google rankings.",fl:"NetTracePro's SEO strategies are built on real data, competitor analysis, and proven techniques that move the needle. We help Houston businesses dominate local search results and attract high-intent customers — month after month.",ft:["Technical SEO audits","Keyword research","On-page optimization","Link building","Local SEO Houston","Monthly analytics"],pr:["Comprehensive audit","Strategy development","Implementation","Monitor & refine"],img:seoImg},
 ];
 const PR=[
-{n:"Takween AI",c:"Web Design & AI",y:"2025",img:PJ.t,d:"NetTracePro built a cutting-edge AI services platform with modern design and SEO-optimized architecture."},
-{n:"M.A. CPA Inc.",c:"Accounting & Finance",y:"2024",img:PJ.m,d:"Developed a professional, conversion-focused website for a certified public accounting firm."},
-{n:"Personal Portfolio",c:"Portfolio & Branding",y:"2024",img:PJ.s,d:"Designed and built a sleek personal portfolio showcasing work, skills, and brand identity."},
-{n:"SimpleTouch POS",c:"Web Application",y:"2021",img:PJ.p,d:"NetTracePro designed a full point-of-sale web app with a companion mobile app for seamless retail management."}
+{n:"AI Platform",c:"AI & Web Design",y:"2025",img:PJ.t,d:"A cutting-edge AI services platform with modern design, custom dashboards, and SEO-optimized architecture — built to convert visitors into clients."},
+{n:"Consulting Firm",c:"Professional Services",y:"2024",img:PJ.m,d:"A high-trust, conversion-focused website for a professional consulting firm — clean, authoritative, and built to drive appointment bookings."},
+{n:"Creative Portfolio",c:"Portfolio & Branding",y:"2024",img:PJ.s,d:"A bold personal portfolio that showcases work beautifully, communicates brand identity, and turns visitors into opportunities."},
+{n:"Software Service",c:"SaaS & Web App",y:"2021",img:PJ.p,d:"A sleek, user-friendly web application with a companion mobile app — designed for daily business use and seamless retail management."}
 ];
 const TE=[
 {q:"NetTracePro understands how to communicate with our customers. Their web design approach transformed our entire digital presence and we saw results within weeks.",a:"Takween AI",r:"Web Design Client",bg:"linear-gradient(135deg,#E8A020,#F0C060)"},
@@ -259,6 +259,40 @@ return<section className="faq-sec" aria-labelledby="faq-heading">
   </div></F>)}</div>
 </section>};
 
+/* === HOME PROJECT 3D GRID ===  */
+const HomeProjGrid=({go})=>{
+  const[tilt,setTilt]=useState({x:0,y:0});
+  useEffect(()=>{
+    const onMove=e=>{
+      const cx=window.innerWidth/2,cy=window.innerHeight/2;
+      setTilt({x:(e.clientY-cy)/cy*4,y:-(e.clientX-cx)/cx*4});
+    };
+    window.addEventListener('mousemove',onMove);
+    return()=>window.removeEventListener('mousemove',onMove);
+  },[]);
+  return<div className="hpg-wrap">
+    <div className="hpg-scene" style={{transform:`perspective(1400px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`}}>
+      <div className="hpg-grid">
+        {PR.map((p,i)=><div key={i} className="hpg-card" style={{animationDelay:`${i*0.5}s`}}>
+          <div className="hpg-img-wrap">
+            <img src={p.img} alt={`NetTracePro — ${p.n}`} className="hpg-img"/>
+            <div className="hpg-overlay"/>
+            <div className="hpg-cat">{p.c}</div>
+          </div>
+          <div className="hpg-info">
+            <h3 className="hpg-name">{p.n}</h3>
+            <p className="hpg-desc">{p.d}</p>
+            <div className="hpg-year">{p.y}</div>
+          </div>
+        </div>)}
+      </div>
+    </div>
+    <div style={{textAlign:"center",marginTop:32,position:"relative",zIndex:10}}>
+      <a href="#" onClick={e=>{e.preventDefault();go("portfolio")}} className="btn bg">View All Projects <A/></a>
+    </div>
+  </div>;
+};
+
 /* === HOME === */
 const Home=({go})=>{
   useSEO({
@@ -282,9 +316,8 @@ return<><section className="hero" aria-label="NetTracePro — Houston Web Design
 
 <TransformSection go={go}/>
 
-<section className="sec" aria-labelledby="projects-heading"><F><div className="hdr"><div className="label">NetTracePro Work</div><h2 className="title" id="projects-heading">Real Projects. Real Results.</h2><p className="sub">Every NetTracePro project is built to perform — beautiful design backed by strategy and SEO.</p></div></F>
-<div className="pg">{PR.map((p,i)=><F key={i} d={i*.08}><div className="pc"><div className="piw"><img className="pim" src={p.img} alt={`NetTracePro project — ${p.n}`}/><div className="pn">0{i+1}</div></div><div className="pbd"><div className="pct">{p.c}</div><h3>{p.n}</h3><div className="py">{p.y}</div></div></div></F>)}</div>
-<div style={{textAlign:"center",marginTop:40}}><a href="#" onClick={e=>{e.preventDefault();go("portfolio")}} className="btn bg">View All Projects <A/></a></div></section>
+<section className="sec hp-proj" aria-labelledby="projects-heading"><F><div className="hdr"><div className="label">NetTracePro Work</div><h2 className="title" id="projects-heading">Real Projects. Real Results.</h2><p className="sub">Every NetTracePro project is built to perform — beautiful design backed by strategy and SEO.</p></div></F></section>
+<HomeProjGrid go={go}/>
 
 <section className="sec-w ts" aria-labelledby="testimonials-heading"><div className="fw"><F><div className="hdr" style={{textAlign:"center"}}><div className="label">Client Testimonials</div><h2 className="title" id="testimonials-heading">What NetTracePro Clients Say</h2></div>
 <div className="tcard"><div className="tglow"/><div className="tcr tcr1"/><div className="tcr tcr2"/>
@@ -322,6 +355,26 @@ const SvcDetail=({id,go})=>{
 };
 
 /* === ABOUT === */
+const AboutParticles=()=>{
+  const c=useRef(null);
+  useEffect(()=>{
+    const cv=c.current;const ctx=cv.getContext('2d');
+    let w=cv.width=cv.offsetWidth,h=cv.height=cv.offsetHeight;
+    const pts=Array.from({length:40},()=>({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,r:Math.random()*1.5+.5,p:Math.random()*Math.PI*2,sp:Math.random()*.015+.008}));
+    let af;
+    const draw=()=>{
+      ctx.clearRect(0,0,w,h);
+      pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.p+=p.sp;if(p.x<0||p.x>w)p.vx*=-1;if(p.y<0||p.y>h)p.vy*=-1;
+        const g=.2+Math.sin(p.p)*.15;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(0,230,118,${g})`;ctx.fill();
+        pts.forEach(q=>{const dx=p.x-q.x,dy=p.y-q.y,d=Math.sqrt(dx*dx+dy*dy);if(d<100){ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.strokeStyle=`rgba(0,230,118,${.08*(1-d/100)})`;ctx.lineWidth=.5;ctx.stroke();}});
+      });af=requestAnimationFrame(draw);
+    };draw();
+    const rs=()=>{w=cv.width=cv.offsetWidth;h=cv.height=cv.offsetHeight;};
+    window.addEventListener('resize',rs);return()=>{cancelAnimationFrame(af);window.removeEventListener('resize',rs);};
+  },[]);
+  return<canvas ref={c} style={{position:'absolute',inset:0,width:'100%',height:'100%',pointerEvents:'none',zIndex:1}}/>;
+};
+
 const About=({go})=>{
   useSEO({
     title:"About NetTracePro | Houston Web Design & Digital Agency",
@@ -330,12 +383,8 @@ const About=({go})=>{
   });
   const[tilt,setTilt]=useState({x:0,y:0});
   useEffect(()=>{
-    const onMove=e=>{
-      const cx=window.innerWidth/2,cy=window.innerHeight/2;
-      setTilt({x:(e.clientY-cy)/cy*4,y:-(e.clientX-cx)/cx*4});
-    };
-    window.addEventListener('mousemove',onMove);
-    return()=>window.removeEventListener('mousemove',onMove);
+    const onMove=e=>{const cx=window.innerWidth/2,cy=window.innerHeight/2;setTilt({x:(e.clientY-cy)/cy*4,y:-(e.clientX-cx)/cx*4});};
+    window.addEventListener('mousemove',onMove);return()=>window.removeEventListener('mousemove',onMove);
   },[]);
   const values=[
     {i:<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00E676" strokeWidth="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>,t:"Strategy First",d:"We plan before we build. Every decision is tied to your goals."},
@@ -344,28 +393,38 @@ const About=({go})=>{
     {i:<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00E676" strokeWidth="1.8"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>,t:"Beyond Launch",d:"We support you after go-live. Your growth is ongoing, so is our work."},
   ];
   return<div className="ab-page">
+    <AboutParticles/>
     <div className="ab-bg"/><div className="ab-fog1"/><div className="ab-fog2"/>
-    {/* HERO */}
-    <div className="ab-hero">
-      <F><span className="label">About NetTracePro</span></F>
-      <F d={.08}><h1 className="ab-h1">Built Different. <span className="acc">By Design.</span></h1></F>
-      <F d={.15}><p className="ab-sub">We started NetTracePro in Houston with a simple belief — every business deserves a website that actually works. Not just looks good. Works.</p></F>
+
+    {/* HERO — logo + mission */}
+    <div className="ab-hero" style={{position:"relative",zIndex:2}}>
+      <F><div className="ab-logo-wrap">
+        <div className="ab-logo-ring ab-ring1"/><div className="ab-logo-ring ab-ring2"/><div className="ab-logo-ring ab-ring3"/>
+        <img src={teamPhoto} alt="NetTracePro" className="ab-logo-img"/>
+      </div></F>
+      <F d={.1}><span className="label">About NetTracePro</span></F>
+      <F d={.18}><h1 className="ab-h1">Affordable Websites.<br/><span className="acc">Extraordinary Results.</span></h1></F>
+      <F d={.25}><p className="ab-sub">We built NetTracePro for small business owners who deserve a professional digital presence without the agency price tag. Beautiful, fast, and built to rank on Google — every time.</p></F>
+      <F d={.32}><div className="ab-mission-pills">
+        {["Small Business Focused","Houston Based","Transparent Pricing","SEO Built In","Real Support"].map((p,i)=>
+          <span key={i} className="ab-pill">{p}</span>
+        )}
+      </div></F>
     </div>
+
     {/* 3D VALUES GRID */}
-    <div className="ab-scene" style={{transform:`perspective(1200px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`}}>
+    <div className="ab-scene" style={{transform:`perspective(1200px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,position:"relative",zIndex:2}}>
       <div className="ab-grid">
-        {values.map((v,i)=><div key={i} className="ab-card" style={{
-          transform:`translateZ(${[40,-20,30,-30][i]}px)`,
-          animationDelay:`${i*0.4}s`
-        }}>
+        {values.map((v,i)=><div key={i} className="ab-card" style={{animationDelay:`${i*0.4}s`}}>
           <div className="ab-card-icon">{v.i}</div>
           <h3 className="ab-card-t">{v.t}</h3>
           <p className="ab-card-d">{v.d}</p>
         </div>)}
       </div>
     </div>
+
     {/* STATS ROW */}
-    <div className="ab-stats">
+    <div className="ab-stats" style={{position:"relative",zIndex:2}}>
       {[{n:"15+",l:"Projects Delivered"},{n:"4+",l:"Years in Houston"},{n:"100%",l:"Client Satisfaction"},{n:"24/7",l:"Support"}].map((s,i)=>
         <F key={i} d={i*.06}><div className="ab-stat">
           <div className="ab-stat-n">{s.n}</div>
@@ -373,8 +432,9 @@ const About=({go})=>{
         </div></F>
       )}
     </div>
-    {/* PROCESS — minimal */}
-    <div className="ab-process">
+
+    {/* PROCESS */}
+    <div className="ab-process" style={{position:"relative",zIndex:2}}>
       <F><h2 className="ab-process-h">How We Work</h2></F>
       <div className="ab-steps">
         {[
@@ -391,7 +451,7 @@ const About=({go})=>{
       </div>
     </div>
     <FaqSection/>
-    <div className="cta"><F><h2 className="cta-h">Let's Build <span className="acc">Together</span></h2><p className="cta-p">Your vision. NetTracePro's expertise. A website that works for your Houston business.</p><a href="#" onClick={e=>{e.preventDefault();go("contact")}} className="btn bg" style={{position:"relative"}}>Start the Conversation <A/></a></F></div>
+    <div className="cta" style={{position:"relative",zIndex:2}}><F><h2 className="cta-h">Let's Build <span className="acc">Together</span></h2><p className="cta-p">Your vision. NetTracePro's expertise. A website that works for your Houston business.</p><a href="#" onClick={e=>{e.preventDefault();go("contact")}} className="btn bg" style={{position:"relative"}}>Start the Conversation <A/></a></F></div>
   </div>;
 };
 
@@ -473,15 +533,15 @@ const Testimonials=({go})=>{
 
   // Extended testimonials for the grid
   const ALL_TE=[
-    {q:"NetTracePro transformed our entire digital presence. Results within weeks.",a:"Takween AI",r:"Web Design",bg:"linear-gradient(135deg,#E8A020,#F0C060)",s:5},
-    {q:"Our new site looks incredible and brought in new clients we never would have found.",a:"M.A. CPA Inc.",r:"Accounting",bg:"linear-gradient(135deg,#4CAF50,#2E7D32)",s:5},
-    {q:"Professionalism and dedication unmatched. They consistently exceed expectations.",a:"SimpleTouch POS",r:"Web App",bg:"linear-gradient(135deg,#42A5F5,#1565C0)",s:5},
-    {q:"Best investment we made for our business. The website practically sells itself.",a:"Houston Client",r:"E-Commerce",bg:"linear-gradient(135deg,#AB47BC,#6A1B9A)",s:5},
-    {q:"They delivered exactly what we envisioned, on time and on budget. Truly exceptional.",a:"Local Business",r:"Web Design",bg:"linear-gradient(135deg,#EF5350,#B71C1C)",s:5},
-    {q:"Our Google rankings jumped to page one within two months. Incredible SEO work.",a:"Service Company",r:"SEO Client",bg:"linear-gradient(135deg,#26C6DA,#00838F)",s:5},
-    {q:"The team at NetTracePro genuinely cares. They checked in throughout the whole process.",a:"Startup Founder",r:"Full Package",bg:"linear-gradient(135deg,#FF7043,#BF360C)",s:5},
-    {q:"Clean code, beautiful design, and they explained everything along the way.",a:"Tech Company",r:"Development",bg:"linear-gradient(135deg,#66BB6A,#1B5E20)",s:5},
-    {q:"Worth every penny. Our old site was costing us customers. This one converts.",a:"Retail Client",r:"Redesign",bg:"linear-gradient(135deg,#FFA726,#E65100)",s:5},
+    {q:"NetTracePro transformed our entire digital presence. Results within weeks.",a:"Takween AI",r:"AI Platform Client",bg:"linear-gradient(135deg,#E8A020,#F0C060)",s:5},
+    {q:"Our new site looks incredible and brought in new clients we never would have found.",a:"M.A. CPA Inc.",r:"Consulting Client",bg:"linear-gradient(135deg,#4CAF50,#2E7D32)",s:5},
+    {q:"Professionalism and dedication unmatched. They consistently exceed expectations.",a:"SimpleTouch",r:"Software Client",bg:"linear-gradient(135deg,#42A5F5,#1565C0)",s:5},
+    {q:"Best investment we made for our business. The website practically sells itself.",a:"E-Commerce Owner",r:"Online Store",bg:"linear-gradient(135deg,#AB47BC,#6A1B9A)",s:5},
+    {q:"They delivered exactly what we envisioned, on time and on budget. Truly exceptional.",a:"Creative Studio",r:"Portfolio Client",bg:"linear-gradient(135deg,#EF5350,#B71C1C)",s:5},
+    {q:"Our Google rankings jumped to page one within two months. Incredible SEO work.",a:"Service Business",r:"SEO Client",bg:"linear-gradient(135deg,#26C6DA,#00838F)",s:5},
+    {q:"NetTracePro genuinely cares. They checked in throughout the whole process.",a:"Startup Founder",r:"Full Package",bg:"linear-gradient(135deg,#FF7043,#BF360C)",s:5},
+    {q:"Clean code, beautiful design, and they explained everything along the way.",a:"Tech Company",r:"Web App Client",bg:"linear-gradient(135deg,#66BB6A,#1B5E20)",s:5},
+    {q:"Worth every penny. Our old site was costing us customers. This one converts.",a:"Retail Business",r:"Redesign Client",bg:"linear-gradient(135deg,#FFA726,#E65100)",s:5},
   ];
 
   // Layout: 3 columns, items at different depths for parallax
@@ -509,8 +569,6 @@ const Testimonials=({go})=>{
             const t=ALL_TE[ti];
             const d=depths[ti];
             return<div key={ri} className="tm-card" style={{
-              transform:`translateZ(${(d-0.8)*60}px) scale(${0.92+d*0.1})`,
-              opacity:0.7+d*0.3,
               animationDelay:`${ti*0.4}s`
             }}>
               <div className="tm-card-top">
@@ -808,7 +866,59 @@ return<><style>{`@import url('https://fonts.googleapis.com/css2?family=Poppins:w
 .tf-stat{background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:14px 18px;flex:1;min-width:80px;transition:border-color .3s}.tf-stat:hover{border-color:rgba(0,230,118,.3)}
 .tf-stat-n{font-size:22px;font-weight:800;color:var(--g);line-height:1}
 .tf-stat-l{font-size:10px;color:var(--td);text-transform:uppercase;letter-spacing:1px;margin-top:4px}
-/* ── 3D PORTFOLIO PAGE ── */
+/* ── HOME PROJECT GRID ── */
+.hpg-wrap{padding:0 60px 80px;max-width:1400px;margin:0 auto;position:relative}
+.hpg-scene{transition:transform .12s ease-out;width:100%}
+.hpg-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.hpg-card{background:rgba(12,12,12,.95);border:1px solid rgba(255,255,255,.07);border-radius:18px;overflow:hidden;transition:transform .35s ease,border-color .35s,box-shadow .35s;animation:tmFloat 7s ease-in-out infinite;cursor:pointer}
+.hpg-card:hover{border-color:rgba(0,230,118,.35);box-shadow:0 40px 80px rgba(0,0,0,.7),0 0 50px rgba(0,230,118,.08);transform:translateY(-16px) scale(1.02)}
+.hpg-img-wrap{position:relative;overflow:hidden;height:300px}
+.hpg-img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;transition:transform .6s ease}
+.hpg-card:hover .hpg-img{transform:scale(1.05)}
+.hpg-overlay{position:absolute;inset:0;background:linear-gradient(0deg,rgba(5,5,5,.92) 0%,rgba(5,5,5,.2) 55%,transparent 100%)}
+.hpg-cat{position:absolute;bottom:16px;left:16px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--g);background:rgba(0,230,118,.1);border:1px solid rgba(0,230,118,.25);padding:5px 14px;border-radius:100px;transition:all .3s}.hpg-card:hover .hpg-cat{background:rgba(0,230,118,.2);border-color:rgba(0,230,118,.5)}
+.hpg-info{padding:22px 24px}
+.hpg-name{font-size:20px;font-weight:700;color:var(--w);margin-bottom:8px;transition:color .3s}.hpg-card:hover .hpg-name{color:var(--g)}
+.hpg-desc{font-size:13px;color:var(--tm);font-weight:300;line-height:1.65;margin-bottom:10px}
+.hpg-year{font-size:11px;color:var(--td)}
+/* ── ABOUT LOGO ── */
+.ab-logo-wrap{position:relative;width:100px;height:100px;margin:0 auto 28px;display:flex;align-items:center;justify-content:center}
+.ab-logo-ring{position:absolute;border-radius:50%;border:1px solid rgba(0,230,118,.15)}
+.ab-ring1{width:100px;height:100px;animation:rp 12s linear infinite}
+.ab-ring2{width:140px;height:140px;animation:rp 18s linear infinite reverse;border-color:rgba(0,230,118,.08)}
+.ab-ring3{width:180px;height:180px;animation:rp 25s linear infinite;border-color:rgba(0,230,118,.05)}
+.ab-logo-img{width:70px;height:70px;object-fit:contain;position:relative;z-index:2;filter:drop-shadow(0 0 20px rgba(0,230,118,.3));animation:hg 4s ease-in-out infinite}
+.ab-mission-pills{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:8px}
+.ab-pill{background:rgba(0,230,118,.06);border:1px solid rgba(0,230,118,.18);color:var(--g);font-size:11px;font-weight:600;padding:6px 16px;border-radius:100px;letter-spacing:.5px;transition:all .3s}.ab-pill:hover{background:rgba(0,230,118,.14);border-color:rgba(0,230,118,.4)}
+/* ── ABOUT PAGE BG ── */
+.ab-page{min-height:100vh;background:#040a06;display:flex;flex-direction:column;align-items:center;overflow:hidden;position:relative;padding-bottom:0;width:100%}
+.ab-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 20%,rgba(0,230,118,.1),transparent 50%),radial-gradient(ellipse at 85% 70%,rgba(0,80,200,.06),transparent 40%),radial-gradient(ellipse at 15% 60%,rgba(0,180,80,.05),transparent 40%);pointer-events:none}
+.ab-fog1{position:absolute;width:1000px;height:500px;background:rgba(0,230,118,.05);top:0%;left:50%;transform:translateX(-50%);filter:blur(80px);animation:hg 6s ease-in-out infinite;pointer-events:none}
+.ab-fog2{position:absolute;width:600px;height:400px;background:rgba(0,60,180,.04);bottom:20%;right:5%;filter:blur(70px);animation:hg 9s ease-in-out infinite reverse;pointer-events:none}
+.ab-hero{text-align:center;padding:110px 24px 50px;position:relative;z-index:2;max-width:700px}
+.ab-h1{font-size:clamp(34px,4.5vw,58px);font-weight:800;color:var(--w);line-height:1.1;margin-bottom:16px;letter-spacing:-1.5px}
+.ab-sub{font-size:16px;color:var(--tm);font-weight:300;line-height:1.75;margin-bottom:20px}
+.ab-scene{width:100%;max-width:1100px;padding:0 40px 40px;transition:transform .12s ease-out;position:relative;z-index:2}
+.ab-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.ab-card{background:rgba(14,14,14,.95);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:28px 22px;transition:transform .35s ease,border-color .35s,box-shadow .35s;animation:tmFloat 6s ease-in-out infinite;position:relative;overflow:hidden;cursor:pointer}
+.ab-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--g),transparent);transform:scaleX(0);transition:transform .4s}
+.ab-card:hover{border-color:rgba(0,230,118,.3);box-shadow:0 28px 56px rgba(0,0,0,.6),0 0 30px rgba(0,230,118,.07);transform:translateY(-14px) scale(1.04)}.ab-card:hover::before{transform:scaleX(1)}
+.ab-card-icon{width:44px;height:44px;background:rgba(0,230,118,.08);border:1px solid rgba(0,230,118,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;transition:all .3s}.ab-card:hover .ab-card-icon{background:rgba(0,230,118,.15);border-color:rgba(0,230,118,.35);transform:scale(1.1)}
+.ab-card-t{font-size:15px;font-weight:700;color:var(--w);margin-bottom:8px;transition:color .3s}.ab-card:hover .ab-card-t{color:var(--g)}
+.ab-card-d{font-size:12px;color:var(--tm);font-weight:300;line-height:1.65}
+.ab-stats{display:flex;gap:0;margin:8px auto 48px;border:1px solid var(--bd);border-radius:12px;overflow:hidden;background:rgba(17,17,17,.8);backdrop-filter:blur(10px);position:relative;z-index:2}
+.ab-stat{padding:20px 36px;text-align:center;border-right:1px solid var(--bd)}.ab-stat:last-child{border-right:none}
+.ab-stat-n{font-size:26px;font-weight:800;color:var(--g);line-height:1}
+.ab-stat-l{font-size:10px;color:var(--td);text-transform:uppercase;letter-spacing:1.2px;margin-top:4px}
+.ab-process{text-align:center;padding:48px 40px 64px;position:relative;z-index:2;width:100%;max-width:900px}
+.ab-process-h{font-size:26px;font-weight:700;color:var(--w);margin-bottom:32px;letter-spacing:-.5px}
+.ab-steps{display:flex;justify-content:center;gap:0;border:1px solid var(--bd);border-radius:12px;overflow:hidden;background:rgba(14,14,14,.8)}
+.ab-step{flex:1;padding:24px 16px;text-align:center;border-right:1px solid var(--bd);position:relative;transition:all .3s;cursor:default}.ab-step:last-child{border-right:none}.ab-step:hover{background:rgba(0,230,118,.04)}
+.ab-step-i{width:40px;height:40px;background:rgba(0,230,118,.08);border:1px solid rgba(0,230,118,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;transition:all .3s}.ab-step:hover .ab-step-i{background:rgba(0,230,118,.15);transform:translateY(-3px)}
+.ab-step-t{font-size:13px;font-weight:700;color:var(--w);transition:color .3s}.ab-step:hover .ab-step-t{color:var(--g)}
+/* ── TESTIMONIALS - all cards uniform hover ── */
+.tm-card{background:rgba(14,14,14,.95);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:24px;position:relative;overflow:hidden;transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease;animation:tmFloat 6s ease-in-out infinite;cursor:pointer}
+.tm-card:hover{border-color:rgba(0,230,118,.3);box-shadow:0 28px 60px rgba(0,0,0,.7),0 0 40px rgba(0,230,118,.07);transform:translateY(-16px) scale(1.03)}
 .pf-page{min-height:100vh;background:#050505;display:flex;flex-direction:column;align-items:center;padding-top:100px;overflow:hidden;position:relative}
 .pf-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 10%,rgba(0,230,118,.07),transparent 50%),radial-gradient(ellipse at 20% 80%,rgba(0,100,200,.05),transparent 40%);pointer-events:none}
 .pf-fog{position:absolute;width:1000px;height:500px;background:rgba(0,230,118,.03);top:20%;left:50%;transform:translateX(-50%);filter:blur(80px);animation:hg 7s ease-in-out infinite;pointer-events:none}
@@ -872,8 +982,7 @@ return<><style>{`@import url('https://fonts.googleapis.com/css2?family=Poppins:w
 .tm-scene{width:100%;max-width:1300px;padding:0 24px 40px;transition:transform .1s ease-out;transform-style:preserve-3d;position:relative;z-index:5}
 .tm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .tm-col{display:flex;flex-direction:column;gap:20px;transform-style:preserve-3d}
-.tm-card{background:rgba(14,14,14,.95);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:24px;position:relative;overflow:hidden;transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease;animation:tmFloat 6s ease-in-out infinite;cursor:pointer}
-.tm-card:hover{border-color:rgba(0,230,118,.3);box-shadow:0 28px 60px rgba(0,0,0,.7),0 0 40px rgba(0,230,118,.07);transform:translateY(-16px) scale(1.03) !important}
+
 @keyframes tmFloat{0%,100%{margin-top:0px}50%{margin-top:-8px}}
 
 .tm-card-top{display:flex;align-items:center;gap:10px;margin-bottom:14px}
@@ -956,7 +1065,7 @@ return<><style>{`@import url('https://fonts.googleapis.com/css2?family=Poppins:w
 .tm-scene{transform:none!important}
 .ab-grid{grid-template-columns:1fr 1fr}
 .ab-scene{transform:none!important}
-.pf-scene{transform:none!important}
+.pf-scene{transform:none!important}.hpg-scene{transform:none!important}.hpg-grid{grid-template-columns:1fr}.hpg-img-wrap{height:220px}.ab-mission-pills{gap:8px}
 .pf-img-wrap{height:220px}
 .pf-grid{grid-template-columns:1fr}
 .ab-stats{flex-direction:row;flex-wrap:wrap}
