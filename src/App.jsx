@@ -3415,19 +3415,13 @@ export default function App() {
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
 /* ═══════════════════════════════════════════════════════════
-   MOBILE / TOUCH DEVICE PERF OPTIMIZATIONS
-   Hide canvas particles + disable mouse-tilt transforms on
-   touch devices to save battery and keep scroll smooth.
-   Targets phones/tablets only — desktop stays untouched.
+   TOUCH DEVICE UX FIXES
+   Mouse-tilt transforms are a desktop-only effect. On touch
+   devices they leave cards stuck in awkward tilted positions
+   (no mouseleave fires on touch), so we zero them out.
    ═══════════════════════════════════════════════════════════ */
-@media (max-width:768px) and (hover:none){
-  /* Hide all canvas particle systems sitewide */
-  canvas{display:none !important}
-}
 @media (hover:none) and (pointer:coarse){
-  /* Zero out mouse-tilt transforms on touch — prevents stuck tilted states */
   .pf-scene,.tx-grid-scene,.ab-scene,.tm-scene{transform:none !important}
-  /* Service preview cards — neutralize the tilt rotation */
   .hp-prev-card{transform:none !important}
 }
 .nv{position:fixed;top:0;left:0;right:0;z-index:1000;transition:all .4s}.nv.sc{background:rgba(10,10,10,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--bd)}
