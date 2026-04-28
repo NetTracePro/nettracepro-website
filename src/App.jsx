@@ -2163,7 +2163,7 @@ const AxValueBand = ({ value, idx, scY }) => {
     <section ref={ref} className={`ax-band ax-band-${align}`}>
       <AxValueParticles type={value.particleType} color={value.color} containerRef={ref}/>
       <div className="ax-band-bg" style={{
-        background: `radial-gradient(ellipse 1200px 700px at ${align === "left" ? "20%" : "80%"} 50%, ${value.color}10, transparent 60%)`
+        background: `radial-gradient(ellipse 1400px 800px at 50% 50%, ${value.color}14, transparent 60%)`
       }}/>
       <div className="ax-band-content" style={{transform:`translate3d(0, ${headlineY}px, 0)`, opacity}}>
         <div className="ax-band-eyebrow" style={{color: value.color}}>
@@ -2171,8 +2171,12 @@ const AxValueBand = ({ value, idx, scY }) => {
           <span>{value.eyebrow}</span>
         </div>
         <h2 className="ax-band-h">
-          {value.headline.split("\n").map((line, i) => (
-            <span key={i} className="ax-band-h-line">{line}</span>
+          {value.headline.split("\n").map((line, i, arr) => (
+            <span
+              key={i}
+              className="ax-band-h-line"
+              style={i === arr.length - 1 ? {color: value.color} : undefined}
+            >{line}</span>
           ))}
         </h2>
         <p className="ax-band-conviction" style={{color: value.color}}>
@@ -4986,7 +4990,7 @@ export default function App() {
   min-height:90vh;
   position:relative;overflow:hidden;
   padding:120px 60px;
-  display:flex;align-items:center;
+  display:flex;align-items:center;justify-content:center;
   border-top:1px solid rgba(255,255,255,.04);
 }
 .ax-band-bg{position:absolute;inset:0;pointer-events:none;z-index:0}
@@ -4994,13 +4998,12 @@ export default function App() {
   position:relative;z-index:5;
   max-width:900px;
   width:100%;
+  margin:0 auto;
+  text-align:center;
   will-change:transform,opacity;
 }
-.ax-band-left .ax-band-content{margin-left:0;margin-right:auto}
-.ax-band-right .ax-band-content{margin-left:auto;margin-right:0;text-align:right}
-.ax-band-right .ax-band-eyebrow{justify-content:flex-end}
 .ax-band-eyebrow{
-  display:inline-flex;align-items:center;gap:14px;
+  display:inline-flex;align-items:center;justify-content:center;gap:14px;
   font-size:12px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;
   margin-bottom:32px;
 }
@@ -5015,6 +5018,11 @@ export default function App() {
 }
 .ax-band-h-line{
   display:block;
+  transition:text-shadow .6s ease;
+}
+.ax-band-h-line[style*="color"]{
+  text-shadow:0 0 40px currentColor;
+  opacity:.95;
 }
 .ax-band-conviction{
   font-size:clamp(18px, 1.6vw, 22px);
@@ -5029,9 +5037,9 @@ export default function App() {
   color:rgba(255,255,255,.6);
   font-weight:300;
   line-height:1.75;
-  max-width:560px;
+  max-width:620px;
+  margin:0 auto;
 }
-.ax-band-right .ax-band-expand{margin-left:auto}
 
 /* ---------- PROOF (Section 4) ---------- */
 .ax-proof{
@@ -5272,9 +5280,6 @@ export default function App() {
   .ax-hero,.ax-band,.ax-origin,.ax-proof,.ax-wont,.ax-finale{padding:80px 24px}
   .ax-hero{padding:120px 24px 80px}
   .ax-band{min-height:auto}
-  .ax-band-right .ax-band-content{text-align:left;margin-right:auto}
-  .ax-band-right .ax-band-eyebrow{justify-content:flex-start}
-  .ax-band-right .ax-band-expand{margin-left:0}
   .ax-proof-grid{grid-template-columns:repeat(2,1fr)}
   .ax-origin{min-height:100vh}
 }
