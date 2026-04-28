@@ -761,9 +761,11 @@ const HpServiceCard = ({ service, onClick }) => {
   const cardRef = useRef(null);
   const [tilt, setTilt] = useState({x:0, y:0, mx:50, my:50, hover:false});
   const Icon = service.Icon;
+  // Detect touch devices once — skip tilt setup entirely for them
+  const isTouch = typeof window !== 'undefined' && window.matchMedia('(hover:none) and (pointer:coarse)').matches;
 
   const handleMove = e => {
-    if (!cardRef.current) return;
+    if (isTouch || !cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
@@ -778,7 +780,7 @@ const HpServiceCard = ({ service, onClick }) => {
     });
   };
 
-  const handleLeave = () => setTilt({x:0, y:0, mx:50, my:50, hover:false});
+  const handleLeave = () => { if (!isTouch) setTilt({x:0, y:0, mx:50, my:50, hover:false}); };
 
   return (
     <div
@@ -2403,6 +2405,8 @@ const Portfolio = ({ go }) => {
   const [tilt, setTilt] = useState({x:0,y:0});
   const [scY, setScY] = useState(0);
   useEffect(() => {
+    // Skip mouse-tilt on touch devices — saves perf and avoids stuck tilt states
+    if (typeof window !== 'undefined' && window.matchMedia('(hover:none) and (pointer:coarse)').matches) return;
     let raf = null;
     let pending = null;
     const onMove = e => {
@@ -2564,6 +2568,8 @@ const Testimonials = ({ go }) => {
     return () => { window.removeEventListener('scroll', onScroll); if (raf) cancelAnimationFrame(raf); };
   }, []);
   useEffect(() => {
+    // Skip mouse-tilt on touch devices
+    if (typeof window !== 'undefined' && window.matchMedia('(hover:none) and (pointer:coarse)').matches) return;
     let raf = null;
     let pending = null;
     const onMove = e => {
@@ -3407,6 +3413,23 @@ export default function App() {
 *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--t);overflow-x:hidden;-webkit-font-smoothing:antialiased}
 /* Screen-reader only — visible to search engines & assistive tech, hidden visually */
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* ═══════════════════════════════════════════════════════════
+   MOBILE / TOUCH DEVICE PERF OPTIMIZATIONS
+   Hide canvas particles + disable mouse-tilt transforms on
+   touch devices to save battery and keep scroll smooth.
+   Targets phones/tablets only — desktop stays untouched.
+   ═══════════════════════════════════════════════════════════ */
+@media (max-width:768px) and (hover:none){
+  /* Hide all canvas particle systems sitewide */
+  canvas{display:none !important}
+}
+@media (hover:none) and (pointer:coarse){
+  /* Zero out mouse-tilt transforms on touch — prevents stuck tilted states */
+  .pf-scene,.tx-grid-scene,.ab-scene,.tm-scene{transform:none !important}
+  /* Service preview cards — neutralize the tilt rotation */
+  .hp-prev-card{transform:none !important}
+}
 .nv{position:fixed;top:0;left:0;right:0;z-index:1000;transition:all .4s}.nv.sc{background:rgba(10,10,10,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--bd)}
 .nv-inner{display:flex;align-items:center;justify-content:space-between;padding:18px 60px;max-width:1400px;margin:0 auto;width:100%}
 .nl{display:flex;align-items:center;text-decoration:none}.nl img{background:transparent !important;display:block}
@@ -3746,10 +3769,10 @@ export default function App() {
 .tf-line{position:absolute;top:0;bottom:0;width:3px;background:var(--g);transform:translateX(-50%);z-index:10;cursor:col-resize;box-shadow:0 0 20px rgba(0,230,118,.6)}
 .tf-handle{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:44px;height:44px;background:var(--g);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--bg);box-shadow:0 0 0 4px rgba(0,230,118,.2),0 8px 24px rgba(0,0,0,.4);transition:transform .2s}.tf-handle:hover{transform:translate(-50%,-50%) scale(1.1)}
 .tf-lbl{position:absolute;top:16px;display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:100px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;transition:opacity .3s;z-index:9}
-.tf-lbl-b{left:14px;background:rgba(0,0,0,.7);color:#aaa;border:1px solid rgba(255,255,255,.1)}
+.tf-lbl-b{left:14px;background:rgba(255,80,80,.15);color:#FF6464;border:1px solid rgba(255,80,80,.35)}
 .tf-lbl-a{right:14px;background:rgba(0,230,118,.15);color:var(--g);border:1px solid rgba(0,230,118,.3)}
 .tf-lbl-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-.tf-dot-b{background:#666}.tf-dot-a{background:var(--g);box-shadow:0 0 8px var(--g)}
+.tf-dot-b{background:#FF6464;box-shadow:0 0 8px #FF6464}.tf-dot-a{background:var(--g);box-shadow:0 0 8px var(--g)}
 .tf-info{display:flex;flex-direction:column;gap:18px}
 .tf-client-tag{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--g)}
 .tf-client-name{font-size:28px;font-weight:800;color:var(--w);line-height:1.2;letter-spacing:-.5px}
@@ -4170,6 +4193,7 @@ export default function App() {
 .ab-process-h{font-size:22px}
 .ct-ac-val{font-size:17px}
 .mock{display:none}
+.hp-hero-mock-tag,.hp-hero-mock-live{display:none}
 }
 
 /* ============================================
@@ -6147,6 +6171,12 @@ export default function App() {
   .hp-mf-glow{width:380px;height:280px}
 }
 
+/* Hide hero mockup floating tags on mobile/touch — they're tied to the desktop mockup */
+@media(max-width:1100px){
+  .hp-hero-mock-tag,
+  .hp-hero-mock-live{display:none !important}
+}
+
 /* ── Mobile-first responsive, Home overhaul ── */
 @media(max-width:1100px){
   .hp-hero{padding:120px 28px 80px}
@@ -6192,7 +6222,6 @@ export default function App() {
   .hp-hero-cta-primary{width:100%;justify-content:center;padding:16px 24px;font-size:14px}
   .hp-hero-cta-secondary{width:100%;justify-content:center;padding:14px 16px}
   .hp-hero-cta-arrow{width:24px;height:24px}
-  .hp-hero-mock-tag{font-size:10px;padding:8px 14px;left:16px;bottom:-14px}
   .hp-hero-orb-1{width:280px;height:280px;top:-50px;right:-80px;opacity:.7}
   .hp-hero-orb-2{width:200px;height:200px;opacity:.7}
   .hp-hero-orb-3{width:160px;height:160px;opacity:.7}
