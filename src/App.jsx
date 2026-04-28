@@ -255,7 +255,7 @@ const Ft = ({ go }) => (
         </div>
         <div className="fc"><h4>Connect</h4>
           <a href="#" onClick={e=>{e.preventDefault();go("contact")}}>Contact NetTracePro</a>
-          <a href="tel:+17132699658">(713) 269-9658</a>
+          <a href="tel:+134624787257">(346) 478-7257</a>
           <a href="mailto:info@nettracepro.com">info@nettracepro.com</a>
           <span style={{fontSize:11,color:"var(--td)"}}>Working remotely worldwide</span>
         </div>
@@ -2840,13 +2840,13 @@ const Contact = () => {
 
           <div className="cx-actions">
             <F d={.55}>
-              <a href="tel:+17132699658" className="cx-action cx-action-call">
+              <a href="tel:+134624787257" className="cx-action cx-action-call">
                 <div className="cx-action-icon">
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
                   </svg>
                 </div>
-                <span>Call (713) 269-9658</span>
+                <span>Call (346) 478-7257</span>
               </a>
             </F>
             <F d={.7}>
@@ -3116,15 +3116,15 @@ const Pricing = ({ go }) => {
                 <div className="px-price-display">
                   <div className="px-price-row">
                     <span className="px-price-currency">$</span>
-                    <span className="px-price-num">500</span>
+                    <span className="px-price-num">1250</span>
                     <span className="px-price-suffix">to start</span>
                   </div>
                   <div className="px-price-monthly">
                     <span className="px-price-plus">+</span>
-                    <span className="px-price-mo-num">$150</span>
+                    <span className="px-price-mo-num">$250</span>
                     <span className="px-price-mo-suffix">/mo for 12 months</span>
                   </div>
-                  <div className="px-price-total">Year 1 total: $2,300</div>
+                  <div className="px-price-total">Year 1 total: $4,000</div>
                 </div>
 
                 <div className="px-card-divider"/>
@@ -3148,7 +3148,7 @@ const Pricing = ({ go }) => {
           <F d={.15}>
             <div className="px-card px-card-full">
               <div className="px-card-glow" style={{background:"radial-gradient(circle at 30% 0%, rgba(130,170,255,.18), transparent 60%)"}}/>
-              <div className="px-card-corner-tag px-card-corner-tag-blue">Save $1,100</div>
+              <div className="px-card-corner-tag px-card-corner-tag-blue">Save $1,000</div>
               <div className="px-card-content">
                 <div className="px-plan-eyebrow px-plan-eyebrow-blue">FULL PAY</div>
                 <div className="px-plan-name">Pay once. Done.</div>
@@ -3157,11 +3157,11 @@ const Pricing = ({ go }) => {
                 <div className="px-price-display">
                   <div className="px-price-row">
                     <span className="px-price-currency px-price-currency-blue">$</span>
-                    <span className="px-price-num px-price-num-blue">1,200</span>
+                    <span className="px-price-num px-price-num-blue">3,000</span>
                     <span className="px-price-suffix">one time</span>
                   </div>
-                  <div className="px-price-savings">Same deliverable. $1,100 less than Flex.</div>
-                  <div className="px-price-total">Year 1 total: $1,200</div>
+                  <div className="px-price-savings">Same deliverable. $1,000 less than Flex.</div>
+                  <div className="px-price-total">Year 1 total: $3,000</div>
                 </div>
 
                 <div className="px-card-divider"/>
@@ -3170,7 +3170,7 @@ const Pricing = ({ go }) => {
                   <li><PxCheck color="#82AAFF"/><span>Everything in "What's included"</span></li>
                   <li><PxCheck color="#82AAFF"/><span>12 months of hosting & maintenance</span></li>
                   <li><PxCheck color="#82AAFF"/><span>No further charges for a year</span></li>
-                  <li><PxCheck color="#82AAFF"/><span>Year 2+: keep it running for $100/mo</span></li>
+                  <li><PxCheck color="#82AAFF"/><span>Year 2+: keep it running for $150/mo</span></li>
                 </ul>
 
                 <a href="#" onClick={e=>{e.preventDefault();go("contact")}} className="px-card-cta px-card-cta-full">
@@ -3194,7 +3194,7 @@ const Pricing = ({ go }) => {
               <div className="px-context-arrow">→</div>
               <div className="px-context-cell px-context-cell-us">
                 <div className="px-context-label">NetTracePro</div>
-                <div className="px-context-value">$1,200 – $2,300</div>
+                <div className="px-context-value">$3,000 – $4,000</div>
                 <div className="px-context-detail">All-in, year one</div>
               </div>
             </div>
